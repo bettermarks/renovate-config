@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    ":separateMultipleMajorReleases",
+    ":automergeRequireAllStatusChecks",
+    ":semanticCommits"
+  ],
+  "prCreation": "immediate",
+  "internalChecksFilter": "strict",
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 4,
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)"
+}
