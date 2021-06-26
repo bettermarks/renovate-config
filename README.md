@@ -98,3 +98,25 @@ and configures the following:
 - Keep unpinned major node version as is
 - Update packages from the `@bettermarks/` scope with higher priority than other dependencies and disable `npm:unpublishSafe`.
 - Update packages from the `@types/*` scope with lower priority than other dependencies and disable `npm:unpublishSafe`. Automatically merge them if they are not a major upgrade and all checks are passing.
+
+### python
+
+Adds some rules we generally apply in python related repositories.
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:python"]
+}
+```
+#### What it does:
+
+It includes the following presets:
+
+- the [default config](#default) from this repository
+
+
+and configures the following:
+
+- constraints python to 3.6
+- Enables [pip-compile](https://docs.renovatebot.com/modules/manager/pip-compile/) manager (and disables [pip_requirements](https://docs.renovatebot.com/modules/manager/pip_requirements/) and [pip_setup](https://docs.renovatebot.com/modules/manager/pip_setup/) managers since they seem to be conflicting?)
+
+**you can override all of this per repo!**

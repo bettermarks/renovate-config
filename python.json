@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>bettermarks/renovate-config"
+  ],
+  "constraints": {
+    "python": "3.6"
+  },
+  "pip-compile": {
+    "fileMatch": ["(^|/)requirements(-.*)?\\.in$"]
+  },
+  "pip_requirements": {
+    "enabled": false
+  },
+  "pip_setup": {
+    "enabled": false
+  }
+}
