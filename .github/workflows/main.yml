@@ -34,5 +34,8 @@ jobs:
       # install renovate-config-validator script
       # so validate.sh doesn't need to invoke nvm
       - run: npm i -g --no-audit renovate
+
+      # validate every configuration preset
       - run: ./validate.sh default.json
       - run: ./validate.sh javascript.json
+      - run: ./validate.sh python.json
