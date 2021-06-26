@@ -31,5 +31,7 @@ jobs:
         with:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
 
-      - run: npm i -g renovate
+      # install renovate-config-validator script
+      # so validate.sh doesn't need to invoke nvm
+      - run: npm i -g --no-audit renovate
       - run: ./validate.sh default.json
