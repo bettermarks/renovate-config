@@ -8,6 +8,11 @@
   ],
   "packageRules": [
     {
+      "matchUpdateTypes": ["pin"],
+      "prPriority": 10,
+      "automerge": true
+    },
+    {
       "matchPackageNames": ["node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
@@ -17,8 +22,14 @@
       "rangeStrategy": "replace"
     },
     {
-      "matchPackagePatterns": ["^@bettermarks\/.*"],
+      "matchPackagePatterns": ["^@bettermarks\/.*", "^bm-.*"],
       "prPriority": 5,
+      "stabilityDays": 0
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "separateMinorPatch": true,
+      "prPriority": 2,
       "stabilityDays": 0
     },
     {
