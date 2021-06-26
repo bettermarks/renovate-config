@@ -5,21 +5,24 @@ Keep in mind that renovate already comes with quite some [presets](https://docs.
 
 ## How to use
 
-In the `renovate.json` add the preset you want to apply this way:
+In the `renovate.json` of your repository add the preset you want to apply:
 ```json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>bettermarks/renovate-config:PRESET"]
 }
 ```
-where `PRESET` is the name of one of the JSON files (whithout extension) in this repository
+where `PRESET` is the name of one of the JSON files (without extension) in this repository.
+
+Remember that you can still customize your configuration when some defaults don't work for you by either adding more presets to `extends` or configuring/ adding `packageRules` afterwards.
 
 To make sure config changes do not only fail when landing on the default branch, use the `./validate.sh path/to/config.sh`. This is also used in github action workflow to validate all the configs in this repository before being able to merge changes.
 
-## Contained presets
+## Presets
 
 ### default
 It contains only language independent defaults that we want to apply to **all** repositories.
+
 **To change this config coordinate and announce them with @bettermarks/dev!**
 
 It is the only preset that doesn't need to be named when using it:
@@ -32,6 +35,22 @@ It is the only preset that doesn't need to be named when using it:
 What it does:
 
 It extends the following presets:
+- [`config:base`](https://docs.renovatebot.com/presets-config/#configbase)  
+  just making the defaults explicit:
+  - `:separateMajorReleases`
+  - `:combinePatchMinorReleases`
+  - `:ignoreUnstable` // only update unstable dependencies but do not update from stable to unstable
+  - `:prImmediately` // create branch and PR at the same time
+  - [`:semanticPrefixFixDepsChoreOthers`](https://docs.renovatebot.com/presets-default/#semanticcommits)
+  - [`:updateNotScheduled`](https://docs.renovatebot.com/presets-default/#updatenotscheduled)
+  - `:automergeDisabled` // should only be enabled per repository 
+  - [`:ignoreModulesAndTests`](https://docs.renovatebot.com/presets-default/#ignoremodulesandtests)
+  - `:autodetectPinVersions`
+  - `:prHourlyLimit2` // overriden to 4 below
+  - `:prConcurrentLimit20` //overriden to 1 below
+  - `group:monorepos`
+  - `group:recommended`
+  - [`workarounds:all`](https://docs.renovatebot.com/presets-workarounds/#workaroundsall)
 - [`:separateMultipleMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemultiplemajorreleases)
 - [`:automergeRequireAllStatusChecks`](https://docs.renovatebot.com/presets-default/#automergerequireallstatuschecks)
 - [`:semanticCommits`](https://docs.renovatebot.com/presets-default/#semanticcommits)
@@ -46,14 +65,14 @@ and configures the following behavior:
 ```
 
 - Rules for limiting noise:
+
+Only automatically create one PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass and only up to 4 times per hour.
+
 ```json
 {
-  "prCreation": "immediate",
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
   "prHourlyLimit": 4
 }
 ```
-
-TBD
 
