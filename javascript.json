@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>default",
+    "github>bettermarks/renovate-config",
     "npm:unpublishSafe",
     "helpers:disableTypesNodeMajor",
     ":pinAllExceptPeerDependencies"
@@ -17,9 +17,15 @@
       "rangeStrategy": "replace"
     },
     {
+      "matchPackagePatterns": ["^@bettermarks\/.*"],
+      "prPriority": 5,
+      "stabilityDays": 0
+    },
+    {
       "matchPackagePatterns": ["^@types\/.*"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "stabilityDays": 0,
+      "prPriority": -5,
       "automerge": true
     }
   ]

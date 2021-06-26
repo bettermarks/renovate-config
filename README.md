@@ -96,4 +96,5 @@ It includes the following presets:
 and configures the following:
 
 - Keep unpinned major node version as is
-- Auto merge `@types/*` updates if they are not major and pass all checks, but with lower priority then other dependencies
+- Update packages from the `@bettermarks/` scope with higher priority than other dependencies and disable `npm:unpublishSafe`.
+- Update packages from the `@types/*` scope with lower priority than other dependencies and disable `npm:unpublishSafe`. Automatically merge them if they are not a major upgrade and all checks are passing.
