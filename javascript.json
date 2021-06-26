@@ -18,14 +18,14 @@
     },
     {
       "matchPackagePatterns": ["^@bettermarks\/.*"],
-      "priority": 5,
+      "prPriority": 5,
       "stabilityDays": 0
     },
     {
       "matchPackagePatterns": ["^@types\/.*"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "stabilityDays": 0,
-      "priority": -5,
+      "prPriority": -5,
       "automerge": true
     }
   ]
