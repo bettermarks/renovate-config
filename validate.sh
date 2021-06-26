@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -eu
 
-. nvm-install
 if [[ ! $(which renovate-config-validator) ]] ; then
+  # source the nvm-install relative to the directory of this script
+  # this way the script can also be invoked using a relative path from other repositories/directories
+  # shellcheck source=./nvm-install
+  . "$(dirname "$(realpath "$0" )")/nvm-install"
   npm i -g renovate
 fi
 
