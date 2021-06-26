@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>default",
+    "npm:unpublishSafe",
+    "helpers:disableTypesNodeMajor",
+    ":pinAllExceptPeerDependencies"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["node"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": ["node"],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchPackagePatterns": ["^@types\/.*"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "stabilityDays": 0,
+      "automerge": true
+    }
+  ]
+}

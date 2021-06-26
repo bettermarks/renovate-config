@@ -34,7 +34,7 @@ It is the only preset that doesn't need to be named when using it:
 ```
 What it does:
 
-It extends the following presets:
+It includes the following presets:
 - [`config:base`](https://docs.renovatebot.com/presets-config/#configbase)  
   just making the defaults explicit:
   - `:separateMajorReleases`
@@ -55,7 +55,7 @@ It extends the following presets:
 - [`:automergeRequireAllStatusChecks`](https://docs.renovatebot.com/presets-default/#automergerequireallstatuschecks)
 - [`:semanticCommits`](https://docs.renovatebot.com/presets-default/#semanticcommits)
 
-and configures the following behavior:
+and configures the following:
 - Adds dependency dashboard
 ```json
 {
@@ -76,3 +76,24 @@ Only automatically create one PR right away when checks done by renovate (like [
 }
 ```
 
+### javascript
+
+Adds some rules we generally apply in javascript related repositories.  
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:javascript"]
+}
+```
+What it does:
+
+It includes the following presets:
+
+- the [default config](#default) from this repository
+- [`:pinAllExceptPeerDependencies`](https://docs.renovatebot.com/presets-default/#pinallexceptpeerdependencies)
+- [`helpers:disableTypesNodeMajor`](https://docs.renovatebot.com/presets-helpers/#helpersdisabletypesnodemajor)
+- [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)
+
+and configures the following:
+
+- Keep unpinned major node version as is
+- Auto merge `@types/*` updates if they are not major and pass all checks, but with lower priority then other dependencies
