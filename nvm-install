@@ -1,0 +1,40 @@
+# shellcheck shell=sh
+# https://gist.github.com/karfau/dcf98c6eefc2f2132c160f5c14d2112f
+
+# needs to be sourced as part of your script
+# 1. tries to configure nvm and run `nvm install`
+# 2. checks if the node version is correct based on ./.nvmrc (`v` prefix not supported)
+# if both doesn't work, exits with code 1 and some helpful messages
+
+# https://unix.stackexchange.com/a/184512/194420
+# https://github.com/nvm-sh/nvm/issues/1290
+if [ -f ~/.nvm/nvm.sh ]; then
+  echo 'sourcing nvm from ~/.nvm'
+  . ~/.nvm/nvm.sh
+elif command -v brew; then
+  # https://docs.brew.sh/Manpage#--prefix-formula
+  BREW_PREFIX=$(brew --prefix nvm)
+  if [ -f "$BREW_PREFIX/nvm.sh" ]; then
+    echo "sourcing nvm from brew ($BREW_PREFIX)"
+    . $BREW_PREFIX/nvm.sh
+  fi
+fi
+
+if command -v nvm ; then
+  nvm i
+else
+  echo "WARN: not able to configure nvm"
+fi
+
+NODE_VERSION="v$(cat .nvmrc)"
+which node
+ACTIVE_VERSION=$(node --version)
+GLOBAL_NPM=$(which npm || echo "not found on PATH")
+# .nvmrc can contain only major or major.minor or full version
+# so we replace active version with node version and anything afterwards
+# if something is left, it's not a match
+if [ "${ACTIVE_VERSION%%$NODE_VERSION*}" ] || [ ! -e "$GLOBAL_NPM" ]; then
+  echo "expected node '$NODE_VERSION' and npm on path"
+  echo "but was '$ACTIVE_VERSION' and npm:'$GLOBAL_NPM'"
+  exit 1
+fi
