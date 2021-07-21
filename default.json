@@ -4,11 +4,13 @@
     "config:base",
     ":separateMultipleMajorReleases",
     ":automergeRequireAllStatusChecks",
-    ":semanticCommits"
+    ":semanticCommits",
+    "schedule:nonOfficeHours"
   ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
   "prHourlyLimit": 4,
+  "updateNotScheduled": false,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)"
 }
