@@ -75,7 +75,7 @@ It is the only preset that doesn't need to be named when using it:
 It includes the following presets:
 - [`config:base`](https://docs.renovatebot.com/presets-config/#configbase)  
   just making the defaults explicit:
-  - `:separateMajorReleases`
+  - [`:separateMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemajorreleases)
   - `:combinePatchMinorReleases`
   - `:ignoreUnstable`  
     only update unstable dependencies but do not update from stable to unstable
@@ -108,12 +108,17 @@ and configures the following:
 ##### Rules for [reducing noise](https://docs.renovatebot.com/noise-reduction/):
 
 Only automatically create one PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass and only up to 4 times per hour.
+No new update PRs or [rebasing](https://docs.renovatebot.com/configuration-options/#updatenotscheduled) of stale PRs [during office hours](https://docs.renovatebot.com/presets-schedule/#schedulenonofficehours).
 
 ```json
 {
+  "extends": [
+    "schedule:nonOfficeHours"
+  ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
-  "prHourlyLimit": 4
+  "prHourlyLimit": 4,
+  "updateNotScheduled": false
 }
 ```
 
