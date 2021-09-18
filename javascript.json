@@ -4,7 +4,8 @@
     "github>bettermarks/renovate-config",
     "npm:unpublishSafe",
     "helpers:disableTypesNodeMajor",
-    ":pinAllExceptPeerDependencies"
+    ":pinAllExceptPeerDependencies",
+    ":maintainLockFilesMonthly"
   ],
   "packageRules": [
     {
