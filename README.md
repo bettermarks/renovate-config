@@ -17,7 +17,7 @@ Keep in mind that renovate already comes with quite some [presets](https://docs.
 
 3. Using the onboarding PR to tweak your `renovate.json` config file in that branch by adding specific `packageRules` or configurations is very convenient, since it will update the PR description to give you a preview of what it will do.
        
-   For more help [read the docs](https://docs.renovatebot.com/configure-renovate/)
+   For more help [read the docs](https://docs.renovatebot.com/getting-started/installing-onboarding/)
    
 3. Merge the onboarding pr once the provided preview matches you expectations.
 
@@ -140,6 +140,7 @@ It includes the following presets:
 - [`helpers:disableTypesNodeMajor`](https://docs.renovatebot.com/presets-helpers/#helpersdisabletypesnodemajor)
   See further notes regarding node version below
 - [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)
+- [`:maintainLockFilesMonthly`](https://docs.renovatebot.com/presets-default/#maintainlockfilesmonthly)
 
 and configures the following:
 
@@ -153,7 +154,7 @@ and configures the following:
 
 Be aware that there are the config presets for [`config:js-app`](https://docs.renovatebot.com/presets-config/#configjs-app) which you will not need, since it's already part of this one, but you might want to use [`config:js-lib`](https://docs.renovatebot.com/presets-config/#configjs-lib) or just apply [`:pinOnlyDevDependencies`](https://docs.renovatebot.com/presets-default/#pinonlydevdependencies) **after** this preset.
 
-A very common thing is to add [`:autoMergePatch`] to `extends`, but this needs to happen on the repository level, since we can not be sure that test coverage is good enough in every repo. And since github now offers the option to enable automerge per PR when it's ready, there might not even be a need for it.
+A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/presets-default/#automergepatch) to `extends`, but this needs to happen on the repository level, since we can not be sure that test coverage is good enough in every repo. And since github now offers the option to enable automerge per PR when it's ready, there might not even be a need for it.
 
 
 ### python
