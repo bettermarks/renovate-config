@@ -109,6 +109,7 @@ and configures the following:
 
 Only automatically create one PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass and only up to 4 times per hour.
 No new update PRs or [rebasing](https://docs.renovatebot.com/configuration-options/#updatenotscheduled) of stale PRs [during office hours](https://docs.renovatebot.com/presets-schedule/#schedulenonofficehours).
+All major version bumps need to be triggered manually from the dependency dashboard.
 
 ```json
 {
@@ -118,7 +119,13 @@ No new update PRs or [rebasing](https://docs.renovatebot.com/configuration-optio
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
   "prHourlyLimit": 4,
-  "updateNotScheduled": false
+  "updateNotScheduled": false,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
 }
 ```
 

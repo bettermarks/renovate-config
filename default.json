@@ -12,5 +12,11 @@
   "prHourlyLimit": 4,
   "updateNotScheduled": false,
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)"
+  "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
 }
