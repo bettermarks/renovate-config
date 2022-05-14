@@ -12,7 +12,7 @@ fi
 
 export RENOVATE_CONFIG_FILE=${1:-./renovate.json}
 if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then
-  echo "could not find the file $(abs "$RENOVATE_CONFIG_FILE")"
+  echo "could not find the file $(realpath "$RENOVATE_CONFIG_FILE")"
   exit 1
 fi
 
