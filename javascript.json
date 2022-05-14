@@ -34,6 +34,15 @@
       "stabilityDays": 0
     },
     {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "@types/jest"
+      ],
+      "versioning": "jest"
+    },
+    {
       "matchPackagePatterns": ["^@types\/.*"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "stabilityDays": 0,

@@ -155,6 +155,7 @@ and configures the following:
 - Keep unpinned major node version as is
 - Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies and disable `npm:unpublishSafe`.
 - Update the `typescript` dependency with higher priority(2) than other dependencies and disable `npm:unpublishSafe`. Create separate PRs for patch and minor version upgrades, since they introduce breaking changes in minor versions.
+- Keep the major version of `@types/jest` in sync with the major version of `jest`.
 - Update packages from the `@types/*` scope with lower priority(-5) than other dependencies and disable `npm:unpublishSafe`.
 
 #### Related options and presets
