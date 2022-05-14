@@ -6,11 +6,15 @@
 # 2. checks if the node version is correct based on ./.nvmrc (`v` prefix not supported)
 # if both doesn't work, exits with code 1 and some helpful messages
 
+# Sometimes we prefer `nvm use` over `nvm install`
+# you can basically put anything you want here, but the default is `install`
+NVM_SETUP_COMMAND=${NVM_SETUP_COMMAND:-install}
+
 # https://unix.stackexchange.com/a/184512/194420
 # https://github.com/nvm-sh/nvm/issues/1290
-if [ -f ~/.nvm/nvm.sh ]; then
-  echo 'sourcing nvm from ~/.nvm'
-  . ~/.nvm/nvm.sh
+if [ -f ${NVM_DIR}/nvm.sh ]; then
+  echo "sourcing nvm from NVM_DIR:${NVM_DIR}"
+  . ${NVM_DIR}/nvm.sh
 elif command -v brew; then
   # https://docs.brew.sh/Manpage#--prefix-formula
   BREW_PREFIX=$(brew --prefix nvm)
@@ -21,7 +25,8 @@ elif command -v brew; then
 fi
 
 if command -v nvm ; then
-  nvm i
+  echo "NVM_SETUP_COMMAND is ${NVM_SETUP_COMMAND}"
+  nvm ${NVM_SETUP_COMMAND}
 else
   echo "WARN: not able to configure nvm"
 fi
@@ -36,5 +41,5 @@ GLOBAL_NPM=$(which npm || echo "not found on PATH")
 if [ "${ACTIVE_VERSION%%$NODE_VERSION*}" ] || [ ! -e "$GLOBAL_NPM" ]; then
   echo "expected node '$NODE_VERSION' and npm on path"
   echo "but was '$ACTIVE_VERSION' and npm:'$GLOBAL_NPM'"
-  exit 1
+  return 1
 fi
