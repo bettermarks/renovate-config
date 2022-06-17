@@ -152,7 +152,8 @@ It includes the following presets:
 and configures the following:
 
 - [PRs to pin versions](https://docs.renovatebot.com/dependency-pinning/) have the highest priority(10).
-- Keep unpinned major node version as is
+- Disable updates for major node versions and prevent pinning toa specific node version 
+- Keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/).
 - Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies and disable `npm:unpublishSafe`.
 - Update the `typescript` dependency with higher priority(2) than other dependencies and disable `npm:unpublishSafe`. Create separate PRs for patch and minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.

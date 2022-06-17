@@ -23,6 +23,10 @@
       "rangeStrategy": "replace"
     },
     {
+      "matchDepTypes": ["resolutions"],
+      "rangeStrategy": "auto"
+    },
+    {
       "matchPackagePatterns": ["^@bettermarks\/.*", "^bm-.*"],
       "prPriority": 5,
       "stabilityDays": 0
