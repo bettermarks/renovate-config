@@ -1,18 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
+    ":automergeDisabled",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":separateMajorReleases",
     ":separateMultipleMajorReleases",
-    ":automergeRequireAllStatusChecks",
-    ":semanticCommits",
-    "schedule:nonOfficeHours"
+    "schedule:nonOfficeHours",
+    "preview:dockerVersions",
+    "regexManagers:dockerfileVersions"
   ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
-  "prHourlyLimit": 4,
+  "prHourlyLimit": 6,
   "updateNotScheduled": false,
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)",
+  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#default  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
+  "dependencyDashboardOSVVulnerabilitySummary": "unresolved",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "schedule": ["before 8am"],
+    "prConcurrentLimit": 3
+  },
+  "addLabels": ["dependencies"],
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],

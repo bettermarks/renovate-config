@@ -7,7 +7,7 @@ if [[ ! $(which renovate-config-validator) ]] ; then
   # shellcheck source=./nvm-install
   . "$(dirname "$(realpath "$0" )")/nvm-install"
   # install renovate-config-validator script
-  npm i -g --no-audit renovate
+#  npm i -g --no-audit renovate
 fi
 
 export RENOVATE_CONFIG_FILE=${1:-./renovate.json}
@@ -16,4 +16,4 @@ if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then
   exit 1
 fi
 
-renovate-config-validator
+npx --package renovate -yes renovate-config-validator
