@@ -2,6 +2,12 @@ on:
   push:
     paths:
       - renovate.json
+  pull_request:
+    branches:
+      - main
+      - master
+    paths:
+      - renovate.json
 
 jobs:
   renovate-config-validator:
