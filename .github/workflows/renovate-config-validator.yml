@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - validator
+      - main
+    paths:
+      - renovate.json
+
+jobs:
+  renovate-config-validator:
+    runs-on: ubuntu-latest
+    container:
+      # https://github.com/renovatebot/docker-renovate
+      image: renovate/renovate-slim
+      volumes:
+        - ./renovate.json:/usr/src/app/renovate.json
+    steps:
+      - uses: actions/checkout@v3
+      - run: renovate-config-validator /usr/src/app/renovate.json
