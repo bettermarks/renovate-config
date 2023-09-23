@@ -20,7 +20,7 @@ on:
         type: boolean
         default: false
       automerge:
-        description: "If the repository has solid checks some dependencies can be merged without manual intervention. Leave the field empty"
+        description: "Should some dependency updates be merged a human review? Leave the field empty if you are not sure!"
         default: ""
         type: choice
         options:
@@ -33,11 +33,8 @@ on:
         default: false
 
 
-permissions:
-  contents: write
-  pull-requests: write
-  actions: write
-
+env:
+  BRANCH_NAME: renovate-config-init
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -50,27 +47,30 @@ jobs:
           repository: bettermarks/${{ inputs.repository}}
           path: ${{ inputs.repository }}
           fetch-depth: 0
-#          persist-credentials: false
           token: ${{ secrets.GH_TOKEN }}
       - uses: actions/setup-node@v3
         with:
           node-version-file: renovate-config/.nvmrc
       - working-directory: ${{ inputs.repository }}
-        name: "create or checkout branch renovate-config-init"
+        name: "create or checkout branch ${{ env.BRANCH_NAME }}"
         run: |
-          git switch -c renovate-config-init
+          git switch -c $BRANCH_NAME
           mkdir -p .github/workflows
       - working-directory: renovate-config
         name: "add or update config files"
         run: |
           node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
       - working-directory: ${{ inputs.repository }}
-        name: "git add, push, create pr"
+        name: "git add, commit, push"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .github renovate.json .npmrc
-          git commit -m "chore: Automate dependency updates using renovate"
-          git push --set-upstream origin renovate-config-init
-          gh auth status
-          gh pr create --fill init-renovate
+          git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
+          git commit -m 'chore: Automate dependency updates using renovate\n\nCreated by https://github.com/bettermarks/renovate-config/actions/workflows/init.yml'
+          git push --set-upstream origin $BRANCH_NAME
+      - working-directory: ${{ inputs.repository }}
+        name: "Create pull request"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh pr create --fill $BRANCH_NAME
