@@ -55,12 +55,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: renovate-config/.nvmrc
-      - working-directory: in${{ inputs.repository }}it
+      - working-directory: ${{ inputs.repository }}
         run: |
           git switch init-renovate
           mkdir -p .github/workflows
           if [[ ! -f .github/workflows/renovate-config-validator.yml ]] || [[ ${{ inputs.override }} == true ]] ; then
-            cp ../renovate/.github/workflows/renovate-config-validator.yml .github/workflows/renovate-config-validator.yml
+            cp ../renovate-config/.github/workflows/renovate-config-validator.yml .github/workflows/renovate-config-validator.yml
           fi
           echo 'save-exact=true' >> .npmrc
       - working-directory: renovate-config
