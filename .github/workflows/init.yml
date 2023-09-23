@@ -79,3 +79,14 @@ jobs:
             --title 'chore: Automate dependency updates using renovate' \
             --body 'Created by @${{ github.actor }} using https://github.com/bettermarks/renovate-config/actions/workflows/init.yml' \
             --reviewer ${{ github.actor }}
+
+      - working-directory: ${{ inputs.repository }}
+        name: "Summary"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "PRs for the branch $BRANCH_NAME:" >> $GITHUB_STEP_SUMMARY
+          gh pr view >> $GITHUB_STEP_SUMMARY
+          echo '```diff' >> $GITHUB_STEP_SUMMARY
+          gh pr diff >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
