@@ -6,8 +6,32 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
 
 ## How to use
 
-### if you need to enable Renovate
-1. Add the repo to be configured for the [renovate integration](https://github.com/organizations/bettermarks/settings/installations/314209) (That page contains helpful informatioin and you need to scroll to the bottom of the page to configure the repositories)
+### TLDR; Use the workflow
+
+- Head over to https://github.com/bettermarks/renovate-config/actions/workflows/init.yml
+- click "Run workflow" and fill in the questions:
+  - keep the `main` branch, it's for the files in this repository
+  - enter the name of the repo you want to configure
+  - pick the other options according to the needs of your repository
+  - consider your [automerge](#regarding-automerge-options) strategy
+  - click on the green "Run workflow" button (you might need to scroll)
+- count to 5 and the new workflow run will appear on the screen
+- wait for it to finish
+- it will produce a summary that provides you a link to a PR with the config added
+  - renovate.json the config file for the GitHub App
+  - a GitHub workflow that validates the config file whenever it is changed (like in this PR)
+  - in case you activated `javascript` it will add an npm config to save exact versions in package.json files
+- you can tweak the PR how ever you like 
+  (even by rerunning the workflow with different options, if you enable "override filed")
+- Once it has been approved and merged, renovate will 
+  - Create the dependency dashboard GitHub issue 
+    (where you can check a box to create any update PR right away)
+  - start creating dependency PRs (only outside of office hours)
+
+### as long as renovate is configured to only be available in selected repositories
+
+1. Add the repo to be configured for the [renovate integration](https://github.com/organizations/bettermarks/settings/installations/314209) (That page contains helpful information,
+   and you need to scroll to the bottom of the page to configure the repositories.)
 
 2. Wait for the [onboarding PR](https://docs.renovatebot.com/configure-renovate/) to be created.  
    If your repository is part of the github bettermarks org, the [`default`](#default) config in this repo will be applied automatically. You can add any of the more language specific presets (e.g. by adding `:javascript` or `:python`). 
@@ -37,15 +61,28 @@ Remember that you can still customize your configuration when some defaults don'
 
 ### when you need to validate config file(s)
 
-To make sure config changes do not only fail when landing on the default branch, use the `./validate.sh path/to/config.sh`. 
-This is also used in GitHub action workflow to validate all the configs in this repository before being able to merge changes.
+To make sure config changes do not only fail when landing on the default branch, you have two options:
+
+- By using [the init workflow](https://github.com/bettermarks/renovate-config/actions/workflows/init.yml),
+  (even if you have already configured Renovate),
+  it will copy [the renovate-config-validator workflow](`.github/workflows/renovate-config-validator.yml`) 
+  into you repository so every config change will be validated.
+
+- Check out this repository and run the `validate.sh` script locally (requires nvm):
+  - either from this repository: `./validate.sh path/to/renovate.json`
+  - or from the repository you care about containing `renovate.json`: `../renovate-config/validate.sh`
 
 ### Regarding automerge options
 
-For dependency updates that have `automerge` enabled, renovate will enable automerge on a PR.
-It is of course possible to manually set enable automerge on any GitHub PR.
+For dependency updates that have `automerge` enabled, renovate will enable (GitHub) automerge for a PR.
+**PRs that are created by renovate and are have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)!**
 
-**PR that have are created by renovate and are have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)!**
+Which means that when all checks pass and there is a approving review, the PR will land right away.
+(If it is outdated, Renovate will update it outside office hours, and it will be merged when the checks still pass.)
+It is of course possible to manually enable automerge on any GitHub PR.
+
+If a repository doesn't have enough checks in place to verify dependency updates,
+you should not enable to automerge option.
 
 ## Presets
 
@@ -159,7 +196,9 @@ A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/p
 
 ### python
 
-Adds some rules we generally apply in repositories using python.
+**There is currently only [limited / "alpha level" support](https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/pip-compile/readme.md) for python using `pip-compile`.
+This configuration has not been used with python projects for a while, it most certainly needs changes.**
+
 ```json
 {
   "extends": ["github>bettermarks/renovate-config:python"]
@@ -172,9 +211,10 @@ It includes the following presets:
 - the [default config](#default) from this repository
 
 
-and configures the following:
+and it configures the following:
 
 - constraints python to 3.6
 - Enables [pip-compile](https://docs.renovatebot.com/modules/manager/pip-compile/) manager (and disables [pip_requirements](https://docs.renovatebot.com/modules/manager/pip_requirements/) and [pip_setup](https://docs.renovatebot.com/modules/manager/pip_setup/) managers since they seem to be conflicting?)
 
 **you can override all of this per repo!**
+if you found a config that works for you, please consider to update this one.
