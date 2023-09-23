@@ -34,16 +34,18 @@ if (!fs.existsSync(workflowFile) || inputs.force ) {
   console.error(`NOT modifying existing ${workflowFile}!`)
 }
 
-const npmrcFile = path.join(target, '.npmrc');
-const saveExact = `save-exact=true`;
-const existingContent = fs.existsSync(npmrcFile) && fs.readFileSync(npmrcFile, 'utf8');
-let write = false
-if (!existingContent) {
-  write = `${saveExact}\n`
-} else if (!/^save-exact/.test(existingContent)) {
-  write = `${existingContent}\n${saveExact}\n`
-}
-if (write) {
-  fs.writeFileSync(npmrcFile, write)
-  console.error(`added "${saveExact}" to ${npmrcFile}!`)
+if (inputs.javascript) {
+  const npmrcFile = path.join(target, '.npmrc');
+  const saveExact = `save-exact=true`;
+  const existingContent = fs.existsSync(npmrcFile) && fs.readFileSync(npmrcFile, 'utf8');
+  let write = false
+  if (!existingContent) {
+    write = `${saveExact}\n`
+  } else if (!/^save-exact/.test(existingContent)) {
+    write = `${existingContent}\n${saveExact}\n`
+  }
+  if (write) {
+    fs.writeFileSync(npmrcFile, write)
+    console.error(`added "${saveExact}" to ${npmrcFile}!`)
+  }
 }
