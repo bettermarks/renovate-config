@@ -66,11 +66,11 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
-          git commit -m 'chore: Automate dependency updates using renovate\n\nCreated by https://github.com/bettermarks/renovate-config/actions/workflows/init.yml'
+          git commit -m 'chore: Automate dependency updates using renovate\n\nCreated by https://github.com/bettermarks/renovate-config/actions/workflows/init.yml' || echo "nothing changed"
           git push
       - working-directory: ${{ inputs.repository }}
         name: "Create pull request"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --fill $BRANCH_NAME
+          gh pr create --head $BRANCH_NAME --fill
