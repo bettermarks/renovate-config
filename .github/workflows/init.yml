@@ -54,7 +54,7 @@ jobs:
       - working-directory: ${{ inputs.repository }}
         name: "create or checkout branch ${{ env.BRANCH_NAME }}"
         run: |
-          git switch -t $BRANCH_NAME
+          git switch $BRANCH_NAME --track
           mkdir -p .github/workflows
       - working-directory: renovate-config
         name: "add or update config files"
