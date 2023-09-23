@@ -18,7 +18,7 @@ let configFile = path.join(target, 'renovate.json')
 if (!target || !fs.existsSync(target)) {
   throw 'first argument target has to be a path to a directory but does not exist, was ' + target
 }
-if (!fs.existsSync(configFile) || inputs.override ) {
+if (!fs.existsSync(configFile) || inputs.force ) {
   fs.writeFileSync(configFile, JSON.stringify(config, null, 2), 'utf-8');
   console.error(`written to ${configFile}`)
 } else {
@@ -27,7 +27,7 @@ if (!fs.existsSync(configFile) || inputs.override ) {
 
 let relativeWorkflowFile = ".github/workflows/renovate-config-validator.yml"
 let workflowFile = path.join(target, relativeWorkflowFile)
-if (!fs.existsSync(workflowFile) || inputs.override ) {
+if (!fs.existsSync(workflowFile) || inputs.force ) {
   fs.cpSync(relativeWorkflowFile, workflowFile)
   console.error(`created ${workflowFile}!`)
 } else {
