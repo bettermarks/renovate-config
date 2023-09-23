@@ -85,8 +85,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          echo "PRs for the branch $BRANCH_NAME:" >> $GITHUB_STEP_SUMMARY
-          gh pr view >> $GITHUB_STEP_SUMMARY
-          echo '```diff' >> $GITHUB_STEP_SUMMARY
-          gh pr diff >> $GITHUB_STEP_SUMMARY
+          gh pr view --json number,title,url --template '[\#{{.number}} {{.title}}]({{.url}})
+          ' >> $GITHUB_STEP_SUMMARY
+          echo '```patch' >> $GITHUB_STEP_SUMMARY
+          gh pr diff --patch >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
