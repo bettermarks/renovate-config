@@ -56,13 +56,16 @@ jobs:
         with:
           node-version-file: renovate-config/.nvmrc
       - working-directory: ${{ inputs.repository }}
+        name: "create or checkout branch renovate-config-init"
         run: |
           git switch -c renovate-config-init
           mkdir -p .github/workflows
       - working-directory: renovate-config
+        name: "add or update config files"
         run: |
           node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
       - working-directory: ${{ inputs.repository }}
+        name: "git add, push, create pr"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
