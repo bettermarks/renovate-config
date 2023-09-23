@@ -1,3 +1,4 @@
+name: "Validate renovate config"
 on:
   push:
     paths:
