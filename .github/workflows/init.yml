@@ -61,16 +61,26 @@ jobs:
         run: |
           node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
       - working-directory: ${{ inputs.repository }}
-        name: "git add, commit, push"
+        name: "Commit and push changes"
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
-          git commit -m 'chore: Automate dependency updates using renovate\n\nCreated by https://github.com/bettermarks/renovate-config/actions/workflows/init.yml' || echo "nothing changed"
-          git push
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          (git commit -m 'chore: Automate dependency updates using renovate' || echo "nothing changed") | tee $GITHUB_STEP_SUMMARY 
+          git push | tee $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
       - working-directory: ${{ inputs.repository }}
         name: "Create pull request"
+        if: ${{ ! inputs.force }} # it is likely that the PR already exists when forcing
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --head $BRANCH_NAME --fill
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          gh pr create \
+            --title 'chore: Automate dependency updates using renovate' \
+            --body 'Created by @${{ github.actor }} using https://github.com/bettermarks/renovate-config/actions/workflows/init.yml' \
+            --reviewer ${{ github.actor }} \
+            | tee $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
