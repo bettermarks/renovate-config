@@ -67,7 +67,7 @@ jobs:
           git config user.email github-actions@github.com
           git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
           (git commit -m 'chore: Automate dependency updates using renovate' || echo "nothing changed") 
-          git push --track origin/$BRANCH_NAME
+          git push --set-upstream origin $BRANCH_NAME
 
       - working-directory: ${{ inputs.repository }}
         name: "Create pull request"
