@@ -28,7 +28,7 @@ if (!fs.existsSync(configFile) || inputs.override ) {
 let relativeWorkflowFile = ".github/workflows/renovate-config-validator.yml"
 let workflowFile = path.join(target, relativeWorkflowFile)
 if (!fs.existsSync(workflowFile) || inputs.override ) {
-  fs.cp(relativeWorkflowFile, workflowFile)
+  fs.cpSync(relativeWorkflowFile, workflowFile)
   console.error(`created ${workflowFile}!`)
 } else {
   console.error(`NOT modifying existing ${workflowFile}!`)
