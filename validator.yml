@@ -13,6 +13,6 @@ jobs:
     container:
       image: renovate/renovate-slim
       volumes:
-        - ${{ inputs.config }}:/home/ubuntu/inputs.config.json
+        - ${{ inputs.config }}:/usr/src/app/renovate.json
     steps:
-      - run: renovate-config-validator /home/ubuntu/inputs.config.json
+      - run: renovate-config-validator /usr/src/app/renovate.json

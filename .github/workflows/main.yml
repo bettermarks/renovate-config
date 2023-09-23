@@ -1,16 +1,10 @@
 name: CI
 
 on:
-  # Triggers the workflow on push to every branch if at least one config file changed
+  # Triggers the workflow on push to every branch
   push:
-    paths:
-      - default.json
-      - javascript.json
-      - python.json
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   validate:
     runs-on: ubuntu-latest
     steps:
