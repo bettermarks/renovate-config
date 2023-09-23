@@ -38,12 +38,10 @@ const npmrcFile = path.join(target, '.npmrc');
 const saveExact = `save-exact=true`;
 const existingContent = fs.existsSync(npmrcFile) && fs.readFileSync(npmrcFile, 'utf8');
 let write = false
-if (existingContent) {
-  if (!/^save-exact/.test(existingContent)) {
-    write = `${existingContent}\n${saveExact}\n`
-  }
-} else {
+if (!existingContent) {
   write = `${saveExact}\n`
+} else if (!/^save-exact/.test(existingContent)) {
+  write = `${existingContent}\n${saveExact}\n`
 }
 if (write) {
   fs.writeFileSync(npmrcFile, write)
