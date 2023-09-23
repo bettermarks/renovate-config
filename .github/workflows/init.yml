@@ -54,7 +54,7 @@ jobs:
       - working-directory: ${{ inputs.repository }}
         name: "create or checkout branch ${{ env.BRANCH_NAME }}"
         run: |
-          git switch -c $BRANCH_NAME --track origin
+          git switch -c $BRANCH_NAME --track origin/$BRANCH_NAME || git switch -c $BRANCH_NAME
           mkdir -p .github/workflows
       - working-directory: renovate-config
         name: "add or update config files"
@@ -67,7 +67,7 @@ jobs:
           git config user.email github-actions@github.com
           git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
           (git commit -m 'chore: Automate dependency updates using renovate' || echo "nothing changed") 
-          git push
+          git push --track origin/$BRANCH_NAME
 
       - working-directory: ${{ inputs.repository }}
         name: "Create pull request"
