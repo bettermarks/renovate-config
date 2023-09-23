@@ -18,10 +18,34 @@ let configFile = path.join(target, 'renovate.json')
 if (!target || !fs.existsSync(target)) {
   throw 'first argument target has to be a path to a directory but does not exist, was ' + target
 }
-  // TODO implment merge if needed?
 if (!fs.existsSync(configFile) || inputs.override ) {
   fs.writeFileSync(configFile, JSON.stringify(config, null, 2), 'utf-8');
   console.error(`written to ${configFile}`)
 } else {
   console.error(`NOT modifying existing ${configFile}!`)
+}
+
+let relativeWorkflowFile = ".github/workflows/renovate-config-validator.yml"
+let workflowFile = path.join(target, relativeWorkflowFile)
+if (!fs.existsSync(workflowFile) || inputs.override ) {
+  fs.cp(relativeWorkflowFile, workflowFile)
+  console.error(`created ${workflowFile}!`)
+} else {
+  console.error(`NOT modifying existing ${workflowFile}!`)
+}
+
+const npmrcFile = path.join(target, '.npmrc');
+const saveExact = `save-exact=true`;
+const existingContent = fs.existsSync(npmrcFile) && fs.readFileSync(npmrcFile, 'utf8');
+let write = false
+if (existingContent) {
+  if (!/^save-exact/.test(existingContent)) {
+    write = `${existingContent}\n${saveExact}\n`
+  }
+} else {
+  write = `${saveExact}\n`
+}
+if (write) {
+  fs.writeFileSync(npmrcFile, write)
+  console.error(`added "${saveExact}" to ${npmrcFile}!`)
 }

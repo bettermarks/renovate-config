@@ -59,10 +59,6 @@ jobs:
         run: |
           git switch -c renovate-config-init
           mkdir -p .github/workflows
-          if [[ ! -f .github/workflows/renovate-config-validator.yml ]] || [[ ${{ inputs.override }} == true ]] ; then
-            cp ../renovate-config/.github/workflows/renovate-config-validator.yml .github/workflows/renovate-config-validator.yml
-          fi
-          echo 'save-exact=true' >> .npmrc
       - working-directory: renovate-config
         run: |
           node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
