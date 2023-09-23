@@ -1,4 +1,4 @@
-name: "Start using renovate in bettermarks/${{ inputs.repository }}"
+name: "Start using renovate"
 
 on:
   workflow_dispatch:
