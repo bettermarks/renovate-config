@@ -67,8 +67,8 @@ jobs:
           git config user.email github-actions@github.com
           git add .github/workflows/renovate-config-validator.yml .npmrc renovate.json
           echo '```' >> $GITHUB_STEP_SUMMARY
-          (git commit -m 'chore: Automate dependency updates using renovate' || echo "nothing changed") | tee $GITHUB_STEP_SUMMARY 
-          git push | tee $GITHUB_STEP_SUMMARY
+          (git commit -m 'chore: Automate dependency updates using renovate' || echo "nothing changed") | tee -a $GITHUB_STEP_SUMMARY 
+          git push | tee -a $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
       - working-directory: ${{ inputs.repository }}
@@ -82,5 +82,5 @@ jobs:
             --title 'chore: Automate dependency updates using renovate' \
             --body 'Created by @${{ github.actor }} using https://github.com/bettermarks/renovate-config/actions/workflows/init.yml' \
             --reviewer ${{ github.actor }} \
-            | tee $GITHUB_STEP_SUMMARY
+            | tee -a $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
