@@ -1,0 +1,15 @@
+name: "bettermarks/renovate-config/validator"
+description: "validates a renavate config"
+inputs:
+  config:
+    description: "the relative path to the config file"
+    default: renovate.json
+
+runs:
+  using: docker
+  image: renovate/renovate-slim
+  # https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action#accessing-files-created-by-a-container-action
+  # When a container action runs, it will automatically map the default working directory (GITHUB_WORKSPACE)
+  # on the runner with the /github/workspace directory on the container.
+  args:
+    - renovate-config-validator /github/workspace/${{ inputs.config }}
