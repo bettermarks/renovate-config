@@ -18,11 +18,12 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
 - count to 5 and the new workflow run will appear on the screen
 - wait for it to finish
 - it will produce a summary that provides you a link to a PR with the config added
-  - renovate.json the config file for the GitHub App
-  - a GitHub workflow that validates the config file whenever it is changed (like in this PR)
-  - in case you activated `javascript` it will add an npm config to save exact versions in package.json files
-- you can tweak the PR how ever you like 
-  (even by rerunning the workflow with different options, if you enable "override filed")
+  - `renovate.json` the config file for the GitHub App
+  - `renovate-config-validator.yml` a GitHub workflow that validates `renovate.json` 
+    whenever it is changed (like in the PR that was just created)
+  - `.npmrc` in case the `javascript` option was selected, to [save exact versions in `package.json` files](https://docs.renovatebot.com/dependency-pinning/)
+- you can now tweak the PR if you like 
+  (even by rerunning the workflow with different options, if you enable "override files")
 - Once it has been approved and merged, renovate will 
   - Create the dependency dashboard GitHub issue 
     (where you can check a box to create any update PR right away)
