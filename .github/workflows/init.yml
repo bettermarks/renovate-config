@@ -1,0 +1,74 @@
+name: "Start using renovate"
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: "The bettermarks repository to start using renovate in, no need to add 'bettermarks/' prefix."
+        required: true
+        type: string
+      javascript:
+        description: "Is the repository using javascript/typescript dependencies (e.g. for infrastructure as code)?"
+        default: true
+        type: boolean
+#      python:
+#        description: "Is the repository using python dependencies? (experimental!)"
+#        default: false
+#        type: boolean
+      secrets:
+        description: "Do you use to private npm packages in the `@bettermarks/` scope?"
+        type: boolean
+        default: false
+      automerge:
+        description: "If the repository has solid checks some dependencies can be merged without manual intervention. Leave the field empty"
+        default: ""
+        type: choice
+        options:
+          - ""
+          - ":automergeStableNonMajor"
+          - ":automergePatch"
+      force:
+        description: "Should existing config files be overwritten? If not existing files will not be modified."
+        type: boolean
+        default: false
+
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: renovate-config
+      - uses: actions/checkout@v4
+        with:
+          repository: bettermarks/${{ inputs.repository}}
+          path: ${{ inputs.repository}}
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: renovate-config/.nvmrc
+      - working-directory: init
+        run: |
+          git switch init-renovate
+          mkdir -p .github/workflows
+          if [[ ! -f .github/workflows/renovate-config-validator.yml ]] || [[ ${{ inputs.override }} == true ]] ; then
+            cp ../renovate/.github/workflows/renovate-config-validator.yml .github/workflows/renovate-config-validator.yml
+          fi
+      - working-directory: renovate-config
+        run: |
+          node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
+      - working-directory: init
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "chore: Automate dependency updates using renovate"
+          git push
+          gh auth atatus
+          gh pr create --fill init-renovate
