@@ -41,6 +41,7 @@
     {
       "matchSourceUrlPrefixes": [
         "https://github.com/aws",
+        "https://github.com/cdk8s-team",
         "https://github.com/cdktf",
         "https://github.com/hashicorp"
       ],
