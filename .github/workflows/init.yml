@@ -11,12 +11,12 @@ on:
         description: "Is the repository using javascript/typescript dependencies (e.g. for infrastructure as code)?"
         default: true
         type: boolean
-#      python:
-#        description: "Is the repository using python dependencies? (experimental!)"
-#        default: false
-#        type: boolean
+      python:
+        description: "Is the repository using python dependencies? (experimental!)"
+        default: false
+        type: boolean
       secrets:
-        description: "Do you use to private npm packages in the `@bettermarks/` scope?"
+        description: "Is the repository using private npm packages in the `@bettermarks/` scope?"
         type: boolean
         default: false
       automerge:
@@ -34,7 +34,7 @@ on:
 
 
 env:
-  BRANCH_NAME: renovate-config-init
+  BRANCH_NAME: renovate/reconfigure
 jobs:
   init:
     runs-on: ubuntu-latest
