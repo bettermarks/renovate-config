@@ -45,6 +45,7 @@
         "https://github.com/cdktf",
         "https://github.com/hashicorp"
       ],
+      "groupName": "js infrastructure packages",
       "minimumReleaseAge": null,
       "prPriority": 1,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
