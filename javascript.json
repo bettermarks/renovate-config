@@ -36,6 +36,7 @@
     {
       "matchPackageNames": ["typescript"],
       "separateMinorPatch": true,
+      "separateMultipleMinor": true,
       "prPriority": 2
     },
     {
