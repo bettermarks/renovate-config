@@ -18,6 +18,7 @@
   "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)",
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#default  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
   "dependencyDashboardOSVVulnerabilitySummary": "none",
+  "dependencyDashboardFooter": "The renovate logs can be found at <https://developer.mend.io/github/bettermarks>",
   "osvVulnerabilityAlerts": false,
   "vulnerabilityAlerts": {
     "labels": ["security"],
