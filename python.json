@@ -12,5 +12,9 @@
   },
   "pip_setup": {
     "enabled": false
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "enabled": true
   }
 }
