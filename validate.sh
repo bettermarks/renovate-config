@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -e
 
 if [[ ! $(which renovate-config-validator) ]] ; then
   # source the nvm-install relative to the directory of this script
@@ -7,6 +7,8 @@ if [[ ! $(which renovate-config-validator) ]] ; then
   # shellcheck source=./nvm-install
   . "$(dirname "$(realpath "$0" )")/nvm-install"
 fi
+# nvm setup doesn't work whit this flag
+set -u
 
 export RENOVATE_CONFIG_FILE=${1:-./renovate.json}
 if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then

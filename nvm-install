@@ -1,26 +1,28 @@
 # shellcheck shell=sh
 # https://gist.github.com/karfau/dcf98c6eefc2f2132c160f5c14d2112f
+# v2024.8.15
 
 # needs to be sourced as part of your script
 # 1. tries to configure nvm and run `nvm install`
-# 2. checks if the node version is correct based on ./.nvmrc (`v` prefix not supported)
+# 2. checks if the node version is correct based on ./.nvmrc
 # if both doesn't work, exits with code 1 and some helpful messages
 
 # Sometimes we prefer `nvm use` over `nvm install`
 # you can basically put anything you want here, but the default is `install`
 NVM_SETUP_COMMAND=${NVM_SETUP_COMMAND:-install}
+NVM_DIR=${NVM_DIR:-$HOME/.nvm}
 
 # https://unix.stackexchange.com/a/184512/194420
 # https://github.com/nvm-sh/nvm/issues/1290
-if [ -f ${NVM_DIR}/nvm.sh ]; then
+if [ -f "${NVM_DIR}/nvm.sh" ]; then
   echo "sourcing nvm from NVM_DIR:${NVM_DIR}"
-  . ${NVM_DIR}/nvm.sh
+  . "${NVM_DIR}/nvm.sh"
 elif command -v brew; then
   # https://docs.brew.sh/Manpage#--prefix-formula
   BREW_PREFIX=$(brew --prefix nvm)
   if [ -f "$BREW_PREFIX/nvm.sh" ]; then
     echo "sourcing nvm from brew ($BREW_PREFIX)"
-    . $BREW_PREFIX/nvm.sh
+    . "${BREW_PREFIX}/nvm.sh"
   fi
 fi
 
@@ -31,9 +33,9 @@ else
   echo "WARN: not able to configure nvm"
 fi
 
-NODE_VERSION="v$(cat .nvmrc)"
+NODE_VERSION="$(cat .nvmrc | sed 's/^v//')"
 which node
-ACTIVE_VERSION=$(node --version)
+ACTIVE_VERSION="$(node --version | sed 's/^v//')"
 GLOBAL_NPM=$(which npm || echo "not found on PATH")
 # .nvmrc can contain only major or major.minor or full version
 # so we replace active version with node version and anything afterwards
