@@ -8,26 +8,16 @@
   ],
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
   "packageRules": [
-    {
-      "matchUpdateTypes": ["pin"],
-      "prPriority": 10,
-      "automerge": true
-    },
+    {"matchUpdateTypes": ["pin"], "prPriority": 10, "automerge": true},
     {
       "matchPackageNames": ["node", "@types/node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
+    {"matchPackageNames": ["node"], "rangeStrategy": "replace"},
+    {"matchDepTypes": ["resolutions"], "rangeStrategy": "auto"},
     {
-      "matchPackageNames": ["node"],
-      "rangeStrategy": "replace"
-    },
-    {
-      "matchDepTypes": ["resolutions"],
-      "rangeStrategy": "auto"
-    },
-    {
-      "matchPackagePatterns": ["^@bettermarks\/.*", "^bm-.*"],
+      "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "prPriority": 5,
       "minimumReleaseAge": null,
@@ -40,11 +30,11 @@
       "prPriority": 2
     },
     {
-      "matchSourceUrlPrefixes": [
-        "https://github.com/aws",
-        "https://github.com/cdk8s-team",
-        "https://github.com/cdktf",
-        "https://github.com/hashicorp"
+      "matchSourceUrls": [
+        "https://github.com/aws{/,}**",
+        "https://github.com/cdk8s-team{/,}**",
+        "https://github.com/cdktf{/,}**",
+        "https://github.com/hashicorp{/,}**"
       ],
       "groupName": "js infrastructure packages",
       "minimumReleaseAge": null,
@@ -54,16 +44,12 @@
       "automerge": true
     },
     {
-      "matchManagers": [
-        "npm"
-      ],
-      "matchPackageNames": [
-        "@types/jest"
-      ],
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@types/jest"],
       "versioning": "jest"
     },
     {
-      "matchPackagePatterns": ["^@types\/.*"],
+      "matchPackageNames": ["/^@types/.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "minimumReleaseAge": null,
       "prPriority": -5,

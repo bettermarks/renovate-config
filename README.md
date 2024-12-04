@@ -135,16 +135,14 @@ and it configures the following:
 
 ##### Rules for [reducing noise](https://docs.renovatebot.com/noise-reduction/):
 
-Only automatically create one PR at a time and only create/update PRs [outside of office hours](https://docs.renovatebot.com/presets-schedule/#schedulenonofficehours). 
+Only automatically create one PR at a time and only create/update PRs in the morning and evening,
+which is related to the start and end of working days.
 Create the PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass 
 and only up to six times per hour (every 10 min).
 All major version bumps need to be triggered manually from the dependency dashboard.
 
 ```json
 {
-  "extends": [
-    "schedule:nonOfficeHours"
-  ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
   "prHourlyLimit": 6,
@@ -154,7 +152,8 @@ All major version bumps need to be triggered manually from the dependency dashbo
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
     }
-  ]
+  ],
+  "schedule": ["* 7-9,18-19 * * 1-5"]
 }
 ```
 
