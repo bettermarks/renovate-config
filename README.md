@@ -153,7 +153,7 @@ All major version bumps need to be triggered manually from the dependency dashbo
       "dependencyDashboardApproval": true
     }
   ],
-  "schedule": ["* 7-9,18-19 * * 1-5"]
+  "schedule": ["* 8,18-19 * * 1-5"]
 }
 ```
 
