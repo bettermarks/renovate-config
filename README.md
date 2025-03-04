@@ -198,7 +198,7 @@ A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/p
 ### python
 
 **There is currently only [limited / "alpha level" support](https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/pip-compile/readme.md) for python using `pip-compile`.
-This configuration has been used in some python projects for a while, you can test it in [bettermarks/renovate-config-test-pip-compile](https://github.com/bettermarks/renovate-config-test-pip-compile) by replacing the dependency files and change the config and see what updates renovate files.**
+This configuration is currently only used in a small number of python projects, so it may need modifications. You can test it in [bettermarks/renovate-config-test-pip-compile](https://github.com/bettermarks/renovate-config-test-pip-compile) by modifying the dependency files and the renovate config in order to see what updates renovate produces.**
 
 ```json
 {
@@ -215,11 +215,11 @@ and it configures the following:
 
 - Enables [pip-compile](https://docs.renovatebot.com/modules/manager/pip-compile/) manager (and disables [pip_requirements](https://docs.renovatebot.com/modules/manager/pip_requirements/) and [pip_setup](https://docs.renovatebot.com/modules/manager/pip_setup/) managers since we don't use those)
 
-If you found a config that works for you, please consider to update this one after testing it in [bettermarks/renovate-config-test-pip-compile](https://github.com/bettermarks/renovate-config-test-pip-compile) .
+If you found a config that works for you, please consider updating this one after testing it in [bettermarks/renovate-config-test-pip-compile](https://github.com/bettermarks/renovate-config-test-pip-compile).
 
 **you can override all of this per repo!**
 
-it is very likely that you want to add the following using the correct values:
+It is very likely (especially for `uv pip compile`, which doesn't include the python version in the header) that you want to specify the python version in the config:
 ```
   "constraints": {
     "python": "==3.9" 
