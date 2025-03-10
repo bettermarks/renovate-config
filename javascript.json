@@ -40,7 +40,7 @@
       "minimumReleaseAge": null,
       "prPriority": 1,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "schedule": ["before 4am on Monday"],
+      "schedule": ["before 10am on Monday"],
       "automerge": true
     },
     {
