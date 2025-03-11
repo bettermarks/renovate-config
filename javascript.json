@@ -15,7 +15,7 @@
       "enabled": false
     },
     {"matchPackageNames": ["node"], "rangeStrategy": "replace"},
-    {"matchDepTypes": ["resolutions"], "rangeStrategy": "auto"},
+    {"matchDepTypes": ["overrides", "resolutions", "pnpm.overrides", "engines"], "rangeStrategy": "auto"},
     {
       "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
