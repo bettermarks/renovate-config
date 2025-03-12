@@ -15,10 +15,6 @@ on:
         description: "Is the repository using python dependencies? (experimental!)"
         default: false
         type: boolean
-      secrets:
-        description: "Is the repository using private npm packages in the `@bettermarks/` scope?"
-        type: boolean
-        default: false
       automerge:
         description: "Should some dependency updates be merged a human review? Leave the field empty if you are not sure!"
         default: ""

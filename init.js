@@ -10,7 +10,6 @@ const config = {
   extends: [
     `github>bettermarks/renovate-config${inputs.javascript ? ':javascript' : ''}`,
     inputs.python ? 'github>bettermarks/renovate-config:python' : '',
-    inputs.secrets ? 'github>bettermarks/renovate-secrets' : '',
     inputs.automerge,
   ].filter(Boolean)
 };
