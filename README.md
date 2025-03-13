@@ -120,6 +120,7 @@ It includes the following presets:
 - [`:separateMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemajorreleases) (from minor releases)
 - [`:separateMultipleMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemultiplemajorreleases)
   when there are multiple, we can decide to go one by one or all at once
+- [`timezone`]
   
 and it configures the following:
 ##### Adds dependency dashboard
@@ -129,7 +130,6 @@ and it configures the following:
   "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)",
   "dependencyDashboardHeader": "points to the used shared config file documentation",
   "dependencyDashboardOSVVulnerabilitySummary": "unresolved"
-  
 }
 ```
 
@@ -139,6 +139,7 @@ Only automatically create one PR at a time and only create/update PRs in the mor
 which is related to the start and end of working days.
 Create the PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass 
 and only up to six times per hour (every 10 min).
+Create up to 3 security updates in parallel during working hours.
 All major version bumps need to be triggered manually from the dependency dashboard.
 
 ```json
@@ -147,13 +148,19 @@ All major version bumps need to be triggered manually from the dependency dashbo
   "prConcurrentLimit": 1,
   "prHourlyLimit": 6,
   "updateNotScheduled": false, 
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "schedule": ["* 8-20 * * 1-5"],
+    "prConcurrentLimit": 3
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
     }
   ],
-  "schedule": ["* 8,18-19 * * 1-5"]
+  "timezone": "Europe/Berlin",
+  "schedule": ["* 8-10,18-20 * * 1-5"]
 }
 ```
 

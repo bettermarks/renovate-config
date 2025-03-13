@@ -21,12 +21,13 @@
   "osvVulnerabilityAlerts": false,
   "vulnerabilityAlerts": {
     "labels": ["security"],
-    "schedule": ["before 8am"],
+    "schedule": ["* 8-20 * * 1-5"],
     "prConcurrentLimit": 3
   },
   "addLabels": ["dependencies"],
   "packageRules": [
     {"matchUpdateTypes": ["major"], "dependencyDashboardApproval": true}
   ],
-  "schedule": ["* 8,18-19 * * 1-5"]
+  "timezone": "Europe/Berlin",
+  "schedule": ["* 8-10,18-20 * * 1-5"]
 }
