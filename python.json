@@ -12,5 +12,12 @@
   },
   "pip_setup": {
     "enabled": false
-  }
+  },
+  "packageRules": [
+    {
+      "description": "Production dependencies",
+      "matchFileNames": ["requirements.txt", "requirements.in"],
+      "semanticCommitType": "fix"
+    }
+  ]
 }
