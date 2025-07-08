@@ -8,7 +8,8 @@
     ":separateMajorReleases",
     ":separateMultipleMajorReleases",
     "preview:dockerVersions",
-    "customManagers:dockerfileVersions"
+    "customManagers:dockerfileVersions",
+    "customManagers:githubActionsVersions"
   ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
