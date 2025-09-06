@@ -8,5 +8,5 @@ jobs:
   renovate-config-validator:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: bettermarks/renovate-config/validator@main
