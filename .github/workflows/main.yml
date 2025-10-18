@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       # validate every configuration preset
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
         with:
           config: default.json
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
         with:
           config: javascript.json
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
         with:
           config: python.json
 
