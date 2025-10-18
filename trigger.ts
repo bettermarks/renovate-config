@@ -13,6 +13,8 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
             "issue",
             "view",
             `"${process.env.dashboardIssue}"`,
+            "--repo",
+            `"${process.env.REPO}"`,
             "--json",
             "body,number,title,url",
           ],
@@ -28,6 +30,8 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
           [
             "issue",
             "list",
+            "--repo",
+            `"${process.env.REPO}"`,
             "--author",
             "renovate",
             "--state",
