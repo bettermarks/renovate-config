@@ -33,7 +33,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
             "--repo",
             process.env.REPO,
             "--author",
-            "renovate",
+            "renovate[bot]",
             "--state",
             "open",
             "--json",
