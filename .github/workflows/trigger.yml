@@ -25,6 +25,7 @@ jobs:
         env:
           REPO: ${{ inputs.repo || 'renovate-config' }}
           OWNER: "bettermarks"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
             const {trigger} = await import('${{ github.workspace }}/renovate-config/trigger.ts')
