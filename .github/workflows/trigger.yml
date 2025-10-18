@@ -1,7 +1,12 @@
 name: Trigger renovate
 on:
-  push:
-  workflow_dispatch:
+  pull_request: # test it when the files are changed
+    paths:
+      - trigger.ts
+      - .github/workflows/trigger.yml
+  schedule: # make sure renovate checks at least once an hour
+    - 30 * * * * # hourly https://crontab.guru/#0_*_*_*_*
+  workflow_dispatch: # trigger it for other repos from the browser
     inputs:
       repo:
         description: "name of repository (without bettermarks/)"
@@ -9,6 +14,16 @@ on:
         required: true
       dashboardIssue:
         description: "the number of the dependency dashboard issue"
+        default: 0
+        type: number
+  workflow_call: # use it in other workflows with repo specific triggers/schedule
+    inputs:
+      repo:
+        description: "name of repository to trigger (without bettermarks/)"
+        type: string
+        required: true
+      dashboardIssue:
+        description: "Optional: the number of the dependency dashboard issue"
         default: 0
         type: number
 
