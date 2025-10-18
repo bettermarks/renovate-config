@@ -23,9 +23,11 @@ jobs:
   node:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
+          node-version-file: .nvmrc
           cache: "pnpm"
       - run: pnpm i
       - run: pnpm types
