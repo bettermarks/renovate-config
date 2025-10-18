@@ -16,11 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          repository: 'bettermarks/renovate-config'
+          path: renovate-config
+
       - uses: actions/github-script@v8
         env:
           REPO: ${{ inputs.repo || 'renovate-config' }}
           OWNER: "bettermarks"
         with:
           script: |
-            const {trigger} = await import('./trigger.ts')
+            const {trigger} = await import('${{ github.workspace }}/renovate-config/trigger.ts')
             console.log(await trigger({github, context, exec}))
