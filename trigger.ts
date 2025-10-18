@@ -4,7 +4,7 @@ import { writeFileSync } from "node:fs";
 import path from "node:path";
 
 export const trigger = async ({ exec }: AsyncFunctionArguments) => {
-  // inputs
+  const OWNER_REPO = process.env.OWNER_REPO ?? 'bettermarks/renovate-config';
   let dashboardIssue = undefined;
   console.log((await exec.getExecOutput("gh", ["auth", "status"])).stdout);
   if (process.env.dashboardIssue) {
@@ -15,7 +15,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
           "view",
           process.env.dashboardIssue,
           "--repo",
-          process.env.REPO,
+          OWNER_REPO,
           "--json",
           "url,number,body,title",
         ])
@@ -28,7 +28,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
           "issue",
           "list",
           "--repo",
-          process.env.REPO,
+          OWNER_REPO,
           "--author",
           "renovate[bot]",
           "--state",
@@ -49,7 +49,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
     return "Dashboard already contains checked checkbox, returning.";
   }
   console.log(
-    `Triggering renovate on ${process.env.REPO}#${dashboardIssue.number}...`,
+    `Triggering renovate on ${OWNER_REPO}#${dashboardIssue.number}...`,
   );
   const bodyFile = path.join(import.meta.dirname, ".dashboard-body.md");
   writeFileSync(
@@ -59,13 +59,14 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
       "- [x] <!-- manual job -->",
     ),
   );
-  return exec.getExecOutput("gh", [
+  exec.getExecOutput("gh", [
     "issue",
     "edit",
     dashboardIssue.number,
     "--repo",
-    process.env.REPO,
+    OWNER_REPO,
     "--body-file",
     bodyFile,
   ]);
+  return "Done."
 };

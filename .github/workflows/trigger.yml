@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/github-script@v8
         env:
-          REPO: bettermarks/${{ inputs.repo || 'renovate-config' }}
+          OWNER_REPO: bettermarks/${{ inputs.repo || 'renovate-config' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
