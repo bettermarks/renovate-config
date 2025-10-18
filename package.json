@@ -16,13 +16,15 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "types": "tsc"
+    "types": "tsc",
+    "prepare": "husky"
   },
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@actions/github-script": "github:actions/github-script#v8.0.0",
     "@octokit/core": "7.0.5",
     "@types/node": "24.8.1",
+    "husky": "9.1.7",
     "prettier": "3.6.2",
     "typescript": "5.9.3"
   }

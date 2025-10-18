@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+# source https://github.com/bettermarks/.github/git-hooks/
+echo "executing $0 in $PWD"
+set -eu
+
+if [ $(ls -A1 .git/refs/heads | wc -w) -eq 0 ]; then
+  echo "there is no local branch, so there is no need to prevent any commit"
+  exit 0
+fi
+
+current_branch=$(git branch --show-current)
+
+default_branch=main
+
+if [ "$current_branch" = "$default_branch" ]; then
+  echo "Do not use the default branch '$default_branch' directly, create a feature branch!"
+  exit 1
+fi
