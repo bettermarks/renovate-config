@@ -20,7 +20,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
         await exec.getExecOutput(
           "gh",
           [
-            "issues",
+            "issue",
             "list",
             "--author",
             "renovate",
