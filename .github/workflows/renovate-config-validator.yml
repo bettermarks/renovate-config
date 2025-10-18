@@ -3,13 +3,20 @@ on:
   push:
     paths:
       - renovate.json
+      - validate.sh
+      - validator/action.yml
   workflow_call:
     inputs:
+      config:
+        description: "the relative path to the config file"
+        type: string
+        default: renovate.json
 
 jobs:
   renovate-config-validator:
     runs-on: ubuntu-latest
     steps:
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v6
-      - run: bettermarks/renovate-config/validator@main
+      - uses: actions/checkout@v5
+      - uses: ./validator
+        with:
+          config: ${{ inputs.config }}
