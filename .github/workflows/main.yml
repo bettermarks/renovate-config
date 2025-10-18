@@ -6,19 +6,20 @@ on:
 
 jobs:
   validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - default.json
+          - javascript.json
+          - python.json
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
       # validate every configuration preset
       - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
         with:
-          config: default.json
-      - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
-        with:
-          config: javascript.json
-      - uses: bettermarks/renovate-config/validator@node-pnpm-trigger
-        with:
-          config: python.json
+          config: ${{ matrix.config }}
 
   node:
     runs-on: ubuntu-latest
