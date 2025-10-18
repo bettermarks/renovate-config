@@ -14,5 +14,7 @@ runs:
         path: renovate-config
     - uses: pnpm/action-setup@v4
     - uses: actions/setup-node@v6
-    - run: ./renovate-config/validate.sh ${{ inputs.config }}
+      with:
+        cache: pnpm
+    - run: pnpm dlx --package renovate renovate-config-validator --strict "${{ inputs.config }}"
       shell: bash
