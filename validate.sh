@@ -16,4 +16,4 @@ if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then
   exit 1
 fi
 
-npx --package renovate -yes renovate-config-validator
+npx --package renovate -yes renovate-config-validator --strict "$RENOVATE_CONFIG_FILE"
