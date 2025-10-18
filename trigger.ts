@@ -1,5 +1,5 @@
 import type { AsyncFunctionArguments } from "@actions/github-script";
-import defaultJson from "./default.json" with { type: 'json' };
+import defaultJson from "./default.json" with { type: "json" };
 
 export const trigger = async ({ exec }: AsyncFunctionArguments) => {
   // inputs
@@ -19,13 +19,23 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
       (
         await exec.getExecOutput(
           "gh",
-          ["api", "--author", "renovate", "--state", "open", "--json"],
+          [
+            "issues",
+            "list",
+            "--author",
+            "renovate",
+            "--state",
+            "open",
+            "--json",
+          ],
           {},
         )
       ).stdout,
     );
     if (!Array.isArray(parsed)) throw parsed;
-    dashboardIssue = parsed.find((it) => it.title === defaultJson.dependencyDashboardTitle);
+    dashboardIssue = parsed.find(
+      (it) => it.title === defaultJson.dependencyDashboardTitle,
+    );
   }
   if (!dashboardIssue) throw `Not able to get dashboard issue`;
   console.log(JSON.stringify(dashboardIssue, null, 2));

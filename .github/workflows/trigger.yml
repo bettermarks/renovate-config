@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          repository: 'bettermarks/renovate-config'
+          repository: "bettermarks/renovate-config"
           path: renovate-config
 
       - uses: actions/github-script@v8
