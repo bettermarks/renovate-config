@@ -1,9 +1,20 @@
 import type { AsyncFunctionArguments } from "@actions/github-script";
 import defaultJson from "./default.json" with { type: "json" };
+import {writeFileSync} from "node:fs";
+import path from "node:path";
 
 export const trigger = async ({ exec }: AsyncFunctionArguments) => {
   // inputs
   let dashboardIssue = undefined;
+  console.log((
+    await exec.getExecOutput(
+      "gh",
+      [
+        "auth",
+        "status"
+      ],
+    )
+  ).stdout);
   if (process.env.dashboardIssue) {
     dashboardIssue = JSON.parse(
       (
@@ -18,7 +29,6 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
             "--json",
             "body,number,title,url",
           ],
-          {},
         )
       ).stdout,
     );
@@ -39,7 +49,6 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
             "--json",
             "body,number,title,url",
           ],
-          {},
         )
       ).stdout,
     );
@@ -49,5 +58,23 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
     );
   }
   if (!dashboardIssue) throw `Not able to get dashboard issue`;
-  console.log(JSON.stringify(dashboardIssue, null, 2));
+  console.log('detected ', dashboardIssue.url);
+  if (dashboardIssue.body.includes('- [x]')) {
+    return "Dashboard already contains checked checkbox, returning."
+  }
+  const bodyFile = path.join(import.meta.dirname,'.dashboard-body.md');
+  writeFileSync(bodyFile, dashboardIssue.body.replace('- [ ] <!-- manual job -->', '- [x] <!-- manual job -->'));
+  return (await exec.getExecOutput(
+      "gh",
+      [
+        "issue",
+        "edit",
+        dashboardIssue.number,
+        "--repo",
+        process.env.REPO,
+        "--body-file",
+        bodyFile,
+      ]
+    )
+  ).stdout;
 };
