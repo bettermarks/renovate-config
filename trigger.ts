@@ -15,14 +15,17 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
   // output auth info for debugging
   await exec.getExecOutput("gh", ["auth", "status"]);
   const OWNER_REPO = process.env.OWNER_REPO ?? "bettermarks/renovate-config";
+  const DASHBOARD_ISSUE = parseInt(process.env.DASHBOARD_ISSUE || '0');
+  console.log("Inputs:", { OWNER_REPO, DASHBOARD_ISSUE });
+
   let dashboardIssue = undefined;
-  if (process.env.DASHBOARD_ISSUE) {
+  if (DASHBOARD_ISSUE) {
     dashboardIssue = JSON.parse(
       (
         await exec.getExecOutput("gh", [
           "issue",
           "view",
-          process.env.DASHBOARD_ISSUE,
+          `${DASHBOARD_ISSUE}`,
           "--repo",
           OWNER_REPO,
           "--json",
@@ -53,7 +56,8 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
       (it) => it.title === defaultJson.dependencyDashboardTitle,
     );
   }
-  if (!dashboardIssue) throw `Not able to get dashboard issue`;
+  if (!dashboardIssue)
+    throw `Not able to get dashboard issue for ${OWNER_REPO}`;
   console.log("detected ", dashboardIssue.url);
   if (dashboardIssue.body.includes("- [x]")) {
     console.log(

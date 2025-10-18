@@ -7,10 +7,10 @@ on:
         description: "name of repository (without bettermarks/)"
         type: string
         required: true
-#      dashboardIssue:
-#        description: the number of the dependency dashboard issue
-#        default: 0
-#        type: number
+      dashboardIssue:
+        description: "the number of the dependency dashboard issue"
+        default: 0
+        type: number
 
 jobs:
   trigger:
@@ -24,6 +24,7 @@ jobs:
       - uses: actions/github-script@v8
         env:
           OWNER_REPO: bettermarks/${{ inputs.repo || 'renovate-config' }}
+          DASHBOARD_ISSUE: ${{ inputs.dashboardIssue }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
