@@ -9,7 +9,13 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
       (
         await exec.getExecOutput(
           "gh",
-          ["issue", "view", `"${process.env.dashboardIssue}"`, "--json"],
+          [
+            "issue",
+            "view",
+            `"${process.env.dashboardIssue}"`,
+            "--json",
+            "body,number,title,url",
+          ],
           {},
         )
       ).stdout,
@@ -27,6 +33,7 @@ export const trigger = async ({ exec }: AsyncFunctionArguments) => {
             "--state",
             "open",
             "--json",
+            "body,number,title,url",
           ],
           {},
         )
