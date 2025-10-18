@@ -19,3 +19,14 @@ jobs:
       - uses: bettermarks/renovate-config/validator@main
         with:
           config: python.json
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          cache: 'pnpm'
+      - run: pnpm i
+      - run: pnpm types
+      - run: pnpm format:check

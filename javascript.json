@@ -8,14 +8,22 @@
   ],
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
   "packageRules": [
-    {"matchUpdateTypes": ["pin"], "prPriority": 10, "automerge": true},
+    { "matchUpdateTypes": ["pin"], "prPriority": 10, "automerge": true },
     {
       "matchPackageNames": ["node", "@types/node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
-    {"matchPackageNames": ["node"], "rangeStrategy": "replace"},
-    {"matchDepTypes": ["overrides", "resolutions", "pnpm.overrides", "engines"], "rangeStrategy": "auto"},
+    { "matchPackageNames": ["node"], "rangeStrategy": "replace" },
+    {
+      "matchDepTypes": [
+        "overrides",
+        "resolutions",
+        "pnpm.overrides",
+        "engines"
+      ],
+      "rangeStrategy": "auto"
+    },
     {
       "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],

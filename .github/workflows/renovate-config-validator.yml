@@ -3,10 +3,13 @@ on:
   push:
     paths:
       - renovate.json
+  workflow_call:
+    inputs:
 
 jobs:
   renovate-config-validator:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+      - run: bettermarks/renovate-config/validator@main

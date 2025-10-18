@@ -1,0 +1,26 @@
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: "name of repository (without bettermarks/)"
+        type: string
+        required: true
+#      dashboardIssue:
+#        description: the number of the dependency dashboard issue
+#        default: 0
+#        type: number
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/github-script@v8
+        env:
+          REPO: ${{ inputs.repo || 'renovate-config' }}
+          OWNER: "bettermarks"
+        with:
+          script: |
+            const {trigger} = await import('./trigger.ts')
+            console.log(await trigger({github, context, exec}))

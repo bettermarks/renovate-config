@@ -6,12 +6,9 @@ inputs:
     default: renovate.json
 
 runs:
-  using: docker
-  image: docker://renovate/renovate:40.13
-  # https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action#accessing-files-created-by-a-container-action
-  # When a container action runs, it will automatically map the default working directory (GITHUB_WORKSPACE)
-  # on the runner with the /github/workspace directory on the container.
-  entrypoint: bash
-  args:
-    - renovate-config-validator
-    - /github/workspace/${{ inputs.config }}
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v6
+    - run: ./validate.sh ${{ inputs.config }}
+      shell: bash
