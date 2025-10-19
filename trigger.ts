@@ -99,9 +99,7 @@ export const trigger = async ({
     if (openRenovatePRs.filter((pr) => pr.mergeable).length) {
       return log("There are open and mergeable renovate PRs. No action taken.");
     }
-    log(
-      `Triggering renovate via ${OWNER_REPO}#${dashboardIssue.number}...`,
-    );
+    log(`Triggering renovate via ${OWNER_REPO}#${dashboardIssue.number}...`);
     const bodyFile = path.join(import.meta.dirname, ".dashboard-body.md");
     writeFileSync(
       bodyFile,
