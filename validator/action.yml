@@ -18,6 +18,6 @@ runs:
         standalone: true
 
     - name: validate config file
-      # no need to run the ./validate.sh script since we have configured pnpm and node and it's much faster this way
+      # no need to run the ./validate.sh script to check pnpm/node setup, it is faster this way
       run: pnpm dlx --package renovate renovate-config-validator --strict "${{ inputs.config }}"
       shell: bash
