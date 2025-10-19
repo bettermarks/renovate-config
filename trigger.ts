@@ -75,12 +75,26 @@ export const trigger = async ({
       ...authorRenovate,
       ...jsonPr,
     );
+    openRenovatePRs.forEach((pr) => {
+      core.summary
+        .addRaw("- ")
+        .addLink(`#${pr.number} ${pr.title}`, pr.url)
+        .addRaw(
+          ` is open with ${pr.commits.length} commit${pr.commits.length > 1 ? `s` : ""} and ${pr.reviewDecision.toLowerCase()}, is ${pr.mergeable.toLowerCase()} and ${pr.autoMergeRequest ? "on auto merge" : "needs to be merged manually"}. (${pr.updatedAt})`,
+          true,
+        )
+        .addRaw(
+          `  - ${JSON.stringify(
+            pr.statusCheckRollup.reduce<Record<string, number>>((acc, pr) => {
+              acc[pr.status] = (acc[pr.status] ?? 0) + 1;
+              acc[pr.conclusion] = (acc[pr.conclusion] ?? 0) + 1;
+              return acc;
+            }, {}),
+          )}`,
+          true,
+        );
+    });
     if (openRenovatePRs.filter((pr) => pr.mergeable).length) {
-      openRenovatePRs.forEach((pr) =>
-        log(
-          `- #${pr.number} is open and ${pr.mergeable ? "mergeable" : "not mergeable"} (${pr.commits.length} commits)`,
-        ),
-      );
       return log("There are open and mergeable renovate PRs. No action taken.");
     }
     console.log(
@@ -140,10 +154,10 @@ const jsonPr = [
 type GithubPr = Readonly<{
   autoMergeRequest: unknown;
   commits: readonly unknown[];
-  mergeable: unknown;
+  mergeable: string;
   number: number;
   reviewDecision: string;
-  statusCheckRollup: unknown;
+  statusCheckRollup: { status: string; conclusion: string }[];
   title: string;
   updatedAt: string;
   url: string;
