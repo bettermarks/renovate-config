@@ -14,10 +14,8 @@ runs:
         path: renovate-config
     - uses: pnpm/action-setup@v4
       with:
-        package_json_file: 'renovate-config/package.json'
-    - uses: actions/setup-node@v6
-      with:
-        cache: pnpm
+        package_json_file: "renovate-config/package.json"
+        standalone: true
 
     - name: validate config file
       # no need to run the ./validate.sh script since we have configured pnpm and node and it's much faster this way
