@@ -86,8 +86,10 @@ export const trigger = async ({
         .addRaw(
           `  - ${JSON.stringify(
             pr.statusCheckRollup.reduce<Record<string, number>>((acc, pr) => {
-              acc[pr.status] = (acc[pr.status] ?? 0) + 1;
-              acc[pr.conclusion] = (acc[pr.conclusion] ?? 0) + 1;
+              pr.state && (acc[pr.state] = (acc[pr.state] ?? 0) + 1);
+              pr.status && (acc[pr.status] = (acc[pr.status] ?? 0) + 1);
+              pr.conclusion &&
+                (acc[pr.conclusion] = (acc[pr.conclusion] ?? 0) + 1);
               return acc;
             }, {}),
           )}`,
@@ -157,7 +159,7 @@ type GithubPr = Readonly<{
   mergeable: string;
   number: number;
   reviewDecision: string;
-  statusCheckRollup: { status: string; conclusion: string }[];
+  statusCheckRollup: { state?: string; status?: string; conclusion?: string }[];
   title: string;
   updatedAt: string;
   url: string;
