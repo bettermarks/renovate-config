@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           repository: "bettermarks/renovate-config"
-          path: renovate-config
+          path: ${{ github.workspace }}/renovate-config
 
       - uses: actions/github-script@v8
         env:
@@ -43,5 +43,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           script: |
-            const {trigger} = await import('./renovate-config/trigger.ts')
+            const {trigger} = await import('${{ github.workspace }}/renovate-config/trigger.ts')
             console.log(await trigger({github, context, exec}))
