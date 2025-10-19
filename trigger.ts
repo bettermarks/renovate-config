@@ -58,7 +58,9 @@ export const trigger = async ({
       throw `Not able to get dashboard issue for ${OWNER_REPO}`;
 
     log(
-      `Picked issue ${dashboardIssue.url} with title "${dashboardIssue.title}".`,
+      `Picked issue ${dashboardIssue.url} with title "${dashboardIssue.title}" and ${
+        [...dashboardIssue.body.matchAll(/-\s\[(\s|x)]\s/g)].length
+      } checkboxes.`,
     );
     if (!dashboardIssue.body.includes(manualTrigger)) {
       throw "Issue does not contain manual trigger checkbox, exiting.";
