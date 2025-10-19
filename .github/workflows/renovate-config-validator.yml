@@ -21,6 +21,6 @@ jobs:
         with:
           repository: bettermarks/renovate-config
           path: ${{ github.workspace }}/renovate-config
-      - uses: ./validator
+      - uses: ./renovate-config/validator
         with:
           config: ${{ inputs.config || 'renovate-config/renovate.json' }}
