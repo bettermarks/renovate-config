@@ -16,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      # validate every configuration preset
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: ./validator
         with:
           config: ${{ matrix.config }}
 
