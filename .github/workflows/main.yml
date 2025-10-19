@@ -15,7 +15,7 @@ jobs:
           - python.json
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5 # required for running the local validate action in the next step
       - uses: ./validator
         with:
           config: ${{ matrix.config }}

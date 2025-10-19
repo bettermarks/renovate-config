@@ -5,7 +5,8 @@ on:
       - trigger.ts
       - .github/workflows/trigger.yml
   schedule: # make sure renovate checks at least once an hour
-    - cron: "30 * * * *" # hourly https://crontab.guru/#0_*_*_*_*
+    # every hour at minute thirty https://crontab.guru/#30_%2A_%2A_%2A_%2A
+    - cron: "30 * * * *"
   workflow_dispatch: # trigger it for other repos from the browser
     inputs:
       repo:
