@@ -99,7 +99,7 @@ export const trigger = async ({
     if (openRenovatePRs.filter((pr) => pr.mergeable).length) {
       return log("There are open and mergeable renovate PRs. No action taken.");
     }
-    console.log(
+    log(
       `Triggering renovate via ${OWNER_REPO}#${dashboardIssue.number}...`,
     );
     const bodyFile = path.join(import.meta.dirname, ".dashboard-body.md");
@@ -115,9 +115,9 @@ export const trigger = async ({
       bodyFile,
       ...repoArgs,
     );
-    return "Done.";
+    return log("Done, wait for renovate to pick it up.");
   } finally {
-    await core.summary.write();
+    await core.summary.addEOL().write();
   }
 };
 
