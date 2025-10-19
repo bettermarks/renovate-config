@@ -2,10 +2,10 @@ name: "Validate renovate config"
 on:
   pull_request:
     paths:
-      - renovate.json
-      - validate.sh
-      - validator/action.yml
       - .github/workflows/renovate-config-validator.yml
+      - renovate.json
+      - validator/action.yml
+      - validate.sh
   workflow_call:
     inputs:
       config:
