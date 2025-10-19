@@ -16,5 +16,8 @@ runs:
     - uses: actions/setup-node@v6
       with:
         cache: pnpm
-    - run: pnpm dlx --package renovate renovate-config-validator --strict "${{ inputs.config }}"
+
+    - name: validate config file
+      # no need to run the ./validate.sh script since we have configured pnpm and node and it's much faster this way
+      run: pnpm dlx --package renovate renovate-config-validator --strict "${{ inputs.config }}"
       shell: bash
