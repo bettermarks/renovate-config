@@ -6,16 +6,29 @@ on:
 
 jobs:
   validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - default.json
+          - javascript.json
+          - python.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5 # required for running the local validate action in the next step
+      - uses: ./validator
+        with:
+          config: ${{ matrix.config }}
+
+  node:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      # validate every configuration preset
-      - uses: bettermarks/renovate-config/validator@main
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
         with:
-          config: default.json
-      - uses: bettermarks/renovate-config/validator@main
-        with:
-          config: javascript.json
-      - uses: bettermarks/renovate-config/validator@main
-        with:
-          config: python.json
+          node-version-file: .nvmrc
+          cache: "pnpm"
+      - run: pnpm i
+      - run: pnpm types
+      - run: pnpm format:check

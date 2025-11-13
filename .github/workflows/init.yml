@@ -28,7 +28,6 @@ on:
         type: boolean
         default: false
 
-
 env:
   BRANCH_NAME: renovate/reconfigure
 jobs:
@@ -44,7 +43,7 @@ jobs:
           path: ${{ inputs.repository }}
           fetch-depth: 0
           token: ${{ secrets.GH_TOKEN }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: renovate-config/.nvmrc
       - working-directory: ${{ inputs.repository }}

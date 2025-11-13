@@ -1,12 +1,26 @@
 name: "Validate renovate config"
 on:
-  push:
+  pull_request:
     paths:
+      - .github/workflows/renovate-config-validator.yml
       - renovate.json
+      - validator/action.yml
+      - validate.sh
+  workflow_call:
+    inputs:
+      config:
+        description: "the relative path to the config file"
+        type: string
+        default: renovate.json
 
 jobs:
   renovate-config-validator:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: bettermarks/renovate-config/validator@main
+        with:
+          repository: bettermarks/renovate-config
+          path: ${{ github.workspace }}/renovate-config
+      - uses: ./renovate-config/validator
+        with:
+          config: ${{ inputs.config || 'renovate-config/renovate.json' }}

@@ -1,18 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>bettermarks/renovate-config"
-  ],
+  "extends": ["github>bettermarks/renovate-config"],
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#python  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
   "pip-compile": {
-    "fileMatch": ["(^|/)requirements(-.*)?\\.txt$"]
+    "managerFilePatterns": ["/(^|/)requirements(-.*)?\\.txt$/"]
   },
-  "pip_requirements": {
-    "enabled": false
-  },
-  "pip_setup": {
-    "enabled": false
-  },
+  "pip_requirements": { "enabled": false },
+  "pip_setup": { "enabled": false },
   "packageRules": [
     {
       "description": "Production dependencies",

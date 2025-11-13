@@ -19,13 +19,13 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
 - wait for it to finish
 - it will produce a summary that provides you a link to a PR with the config added
   - `renovate.json` the config file for the GitHub App
-  - `renovate-config-validator.yml` a GitHub workflow that validates `renovate.json` 
+  - `renovate-config-validator.yml` a GitHub workflow that validates `renovate.json`
     whenever it is changed (like in the PR that was just created)
   - `.npmrc` in case the `javascript` option was selected, to [save exact versions in `package.json` files](https://docs.renovatebot.com/dependency-pinning/)
-- you can now tweak the PR if you like 
+- you can now tweak the PR if you like
   (even by rerunning the workflow with different options, if you enable "override files")
-- Once it has been approved and merged, renovate will 
-  - Create the dependency dashboard GitHub issue 
+- Once it has been approved and merged, renovate will
+  - Create the dependency dashboard GitHub issue
     (where you can check a box to create any update PR right away)
   - start creating dependency PRs (only outside of office hours)
 
@@ -35,14 +35,12 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
    and you need to scroll to the bottom of the page to configure the repositories.)
 
 2. Wait for the [onboarding PR](https://docs.renovatebot.com/configure-renovate/) to be created.  
-   If your repository is part of the github bettermarks org, the [`default`](#default) config in this repo will be applied automatically. You can add any of the more language specific presets (e.g. by adding `:javascript` or `:python`). 
+   If your repository is part of the github bettermarks org, the [`default`](#default) config in this repo will be applied automatically. You can add any of the more language specific presets (e.g. by adding `:javascript` or `:python`).
 
    If you previously used a different bot or tool to update dependencies, you can also use this PR to drop related config files or documentation.
 
 3. Using the onboarding PR to tweak your `renovate.json` config file in that branch by adding specific `packageRules` or configurations is very convenient, since it will update the PR description to give you a preview of what it will do.
-       
    For more help [read the docs](https://docs.renovatebot.com/getting-started/installing-onboarding/)
-   
 4. Merge the onboarding pr once the provided preview matches your expectations.
 
 5. (Optionally) Visit the dependency dashboard issue and check if there are any dependencies that you want to already update right away by clicking the related checkbox.
@@ -50,12 +48,14 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
 ### when Renovate is already enabled
 
 In the `renovate.json` of your repository add the preset you want to apply:
+
 ```json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>bettermarks/renovate-config:PRESET"]
 }
 ```
+
 where `PRESET` is the name of one of the [presets](#presets) (`.json` files without an extension) in this repository.
 
 Remember that you can still customize your configuration when some defaults don't work for you by either adding more presets to `extends` or configuring/adding `packageRules` afterwards.
@@ -66,7 +66,7 @@ To make sure config changes do not only fail when landing on the default branch,
 
 - By using [the init workflow](https://github.com/bettermarks/renovate-config/actions/workflows/init.yml),
   (even if you have already configured Renovate),
-  it will copy [the renovate-config-validator workflow](`.github/workflows/renovate-config-validator.yml`) 
+  it will copy [the renovate-config-validator workflow](`.github/workflows/renovate-config-validator.yml`)
   into you repository so every config change will be validated.
 
 - Check out this repository and run the `validate.sh` script locally (requires nvm):
@@ -88,6 +88,7 @@ you should not enable to automerge option.
 ## Presets
 
 ### default
+
 It contains only language independent defaults that we want to apply to **all** repositories.
 
 **To change this config coordinate and announce them with @bettermarks/dev!**
@@ -99,12 +100,14 @@ It is the only preset that doesn't need to be named when using it:
   "extends": ["github>bettermarks/renovate-config"]
 }
 ```
+
 #### What it does:
 
 It includes the following presets:
+
 - [`config:recommended`](https://docs.renovatebot.com/presets-config/#configrecommended)  
   just making the defaults explicit:
-  - [`:dependencyDashboard`](https://docs.renovatebot.com/key-concepts/dashboard/) 
+  - [`:dependencyDashboard`](https://docs.renovatebot.com/key-concepts/dashboard/)
   - [`:semanticPrefixFixDepsChoreOthers`](https://docs.renovatebot.com/presets-default/#semanticprefixfixdepschoreothers)
   - [`:ignoreModulesAndTests`](https://docs.renovatebot.com/presets-default/#ignoremodulesandtests)
   - [`group:monorepos`](https://docs.renovatebot.com/presets-group/#groupmonorepos)
@@ -121,9 +124,11 @@ It includes the following presets:
 - [`:separateMultipleMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemultiplemajorreleases)
   when there are multiple, we can decide to go one by one or all at once
 - [`timezone`]
-  
+
 and it configures the following:
+
 ##### Adds dependency dashboard
+
 ```json
 {
   "dependencyDashboard": true,
@@ -137,7 +142,7 @@ and it configures the following:
 
 Only automatically create one PR at a time and only create/update PRs in the morning and evening,
 which is related to the start and end of working days.
-Create the PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass 
+Create the PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass
 and only up to six times per hour (every 10 min).
 Create up to 3 security updates in parallel during working hours.
 All major version bumps need to be triggered manually from the dependency dashboard.
@@ -147,7 +152,7 @@ All major version bumps need to be triggered manually from the dependency dashbo
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
   "prHourlyLimit": 6,
-  "updateNotScheduled": false, 
+  "updateNotScheduled": false,
   "vulnerabilityAlerts": {
     "labels": ["security"],
     "schedule": ["* 8-20 * * 1-5"],
@@ -166,7 +171,8 @@ All major version bumps need to be triggered manually from the dependency dashbo
 
 ### javascript
 
-Adds some rules we generally apply in javascript related repositories.  
+Adds some rules we generally apply in javascript related repositories.
+
 ```json
 {
   "extends": ["github>bettermarks/renovate-config:javascript"]
@@ -187,10 +193,10 @@ It includes the following presets:
 and it configures the following:
 
 - [PRs to pin versions](https://docs.renovatebot.com/dependency-pinning/) have the highest priority(10).
-- Disable updates for major node versions and prevent pinning to a specific node version 
+- Disable updates for major node versions and prevent pinning to a specific node version
 - Keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/).
 - Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies and disable `npm:unpublishSafe`.
-- Update the `typescript` dependency with higher priority(2) than other dependencies and disable `npm:unpublishSafe`. 
+- Update the `typescript` dependency with higher priority(2) than other dependencies and disable `npm:unpublishSafe`.
   Create separate PRs for patch and minor and multiple minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.
 - Update packages from the `@types/*` scope with lower priority(-5) than other dependencies and disable `npm:unpublishSafe`.
@@ -200,7 +206,6 @@ and it configures the following:
 Be aware that there are the config presets for [`config:js-app`](https://docs.renovatebot.com/presets-config/#configjs-app) which you will not need, since it's already part of this one, but you might want to use [`config:js-lib`](https://docs.renovatebot.com/presets-config/#configjs-lib) or just apply [`:pinOnlyDevDependencies`](https://docs.renovatebot.com/presets-default/#pinonlydevdependencies) **after** this preset.
 
 A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/presets-default/#automergepatch) to `extends`, but this needs to happen on the repository level, since we cannot be sure that test coverage is good enough in every repo. And since GitHub now offers the option to enable automerge per PR when it's ready, there might not even be a need for it.
-
 
 ### python
 
@@ -212,6 +217,7 @@ This configuration is currently only used in a small number of python projects, 
   "extends": ["github>bettermarks/renovate-config:python"]
 }
 ```
+
 #### What it does:
 
 It includes the following presets:
@@ -227,8 +233,9 @@ If you found a config that works for you, please consider updating this one afte
 **you can override all of this per repo!**
 
 It is very likely (especially for `uv pip compile`, which doesn't include the python version in the header) that you want to specify the python version in the config:
+
 ```
   "constraints": {
-    "python": "==3.9" 
+    "python": "==3.9"
   },
 ```

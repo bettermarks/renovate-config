@@ -16,4 +16,8 @@ if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then
   exit 1
 fi
 
-npx --package renovate -yes renovate-config-validator
+if command -v pnpm; then
+  pnpm dlx --package renovate renovate-config-validator --strict "$RENOVATE_CONFIG_FILE"
+else
+  npx --package renovate -yes renovate-config-validator --strict "$RENOVATE_CONFIG_FILE"
+fi

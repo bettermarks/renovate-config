@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# paths are relative to the project root
+
+.husky/no-commit-to-default-branch
+
+.husky/check-pnpm.sh
+# no concurrency since we need to run prettier after potential eslint fixes
+pnpm types
+pnpm format

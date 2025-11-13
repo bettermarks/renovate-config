@@ -27,7 +27,7 @@
   },
   "addLabels": ["dependencies"],
   "packageRules": [
-    {"matchUpdateTypes": ["major"], "dependencyDashboardApproval": true}
+    { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": true }
   ],
   "timezone": "Europe/Berlin",
   "schedule": ["* 7-8,18-20 * * 1-5"]
