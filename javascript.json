@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>bettermarks/renovate-config",
     "security:minimumReleaseAgeNpm",
+    "github>bettermarks/renovate-config",
     ":pinAllExceptPeerDependencies",
     ":maintainLockFilesMonthly"
   ],
@@ -28,7 +28,7 @@
       "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "prPriority": 5,
-      "minimumReleaseAge": null,
+      "minimumReleaseAge": "0 days",
       "automerge": true
     },
     {
