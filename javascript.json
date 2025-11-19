@@ -28,7 +28,7 @@
       "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "prPriority": 5,
-      "minimumReleaseAge": 0,
+      "minimumReleaseAge": "0 days",
       "automerge": true
     },
     {
