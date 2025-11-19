@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "security:minimumReleaseAgeNpm",
     "github>bettermarks/renovate-config",
     ":pinAllExceptPeerDependencies",
     ":maintainLockFilesMonthly"
@@ -15,6 +14,14 @@
       "enabled": false
     },
     { "matchPackageNames": ["node"], "rangeStrategy": "replace" },
+    {
+      "description": "custom version of security:minimumReleaseAgeNpm since it overrides prImmediate which we do not want, see https://github.com/renovatebot/renovate/discussions/39242#discussioncomment-14987608 and https://docs.renovatebot.com/key-concepts/minimum-release-age/#minimum-release-age",
+      "matchDatasources": ["npm"],
+      "matchUpdateTypes": ["patch", "major", "minor"],
+      "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict",
+      "prCreation": "immediate"
+    },
     {
       "matchDepTypes": [
         "overrides",
@@ -45,7 +52,6 @@
         "https://github.com/hashicorp{/,}**"
       ],
       "groupName": "js infrastructure packages",
-      "minimumReleaseAge": null,
       "prPriority": 1,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "schedule": ["* 8-12 * * 1"],

@@ -165,7 +165,7 @@ All major version bumps need to be triggered manually from the dependency dashbo
     }
   ],
   "timezone": "Europe/Berlin",
-  "schedule": ["* 8-10,18-20 * * 1-5"]
+  "schedule": ["* 7-8,18-20 * * 1-5"]
 }
 ```
 
@@ -185,21 +185,24 @@ It includes the following presets:
 
 - the [default config](#default) from this repository
 - [`:pinAllExceptPeerDependencies`](https://docs.renovatebot.com/presets-default/#pinallexceptpeerdependencies)
-- [`helpers:disableTypesNodeMajor`](https://docs.renovatebot.com/presets-helpers/#helpersdisabletypesnodemajor)
-  See further notes regarding NodeJs versions below
-- [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)
 - [`:maintainLockFilesMonthly`](https://docs.renovatebot.com/presets-default/#maintainlockfilesmonthly)
 
 and it configures the following:
 
 - [PRs to pin versions](https://docs.renovatebot.com/dependency-pinning/) have the highest priority(10).
-- Disable updates for major node versions and prevent pinning to a specific node version
-- Keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/).
-- Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies and disable `npm:unpublishSafe`.
-- Update the `typescript` dependency with higher priority(2) than other dependencies and disable `npm:unpublishSafe`.
+- Disable updates for major NodeJS versions and the `@types/node` package and prevent pinning to a specific NodeJS version
+- configure `minimumReleaseAge` of 3 days for regular updates of npm packages,
+  while still allowing immediate PR creation ([docs](https://docs.renovatebot.com/key-concepts/minimum-release-age/#internalchecksfilterstrict), [related discussion thread](https://github.com/renovatebot/renovate/discussions/39242#discussioncomment-14987608))
+- keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/), `overrides` and `engines`.
+- Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies, without waiting for 3 days and on automerge.
+- Update the `typescript` dependency with higher priority(2) than other dependencies.
   Create separate PRs for patch and minor and multiple minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.
+- group infra as code packages (aws, cdk8s, cdktf, hashicorp) int a single group
+  and schedule their updates during working hours with a priority of 1.
 - Update packages from the `@types/*` scope with lower priority(-5) than other dependencies and disable `npm:unpublishSafe`.
+- link to this section in the readme from the dependency dashboard,
+  mentioning that PR might be merged automatically if configured that way.
 
 #### Related options and presets
 
