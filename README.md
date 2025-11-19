@@ -191,7 +191,7 @@ and it configures the following:
 
 - [PRs to pin versions](https://docs.renovatebot.com/dependency-pinning/) have the highest priority(10).
 - Disable updates for major NodeJS versions and the `@types/node` package and prevent pinning to a specific NodeJS version
-- configure `minimumReleaseAge` of 3 days for regular updates of npm packages, 
+- configure `minimumReleaseAge` of 3 days for regular updates of npm packages,
   while still allowing immediate PR creation ([docs](https://docs.renovatebot.com/key-concepts/minimum-release-age/#internalchecksfilterstrict), [related discussion thread](https://github.com/renovatebot/renovate/discussions/39242#discussioncomment-14987608))
 - keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/), `overrides` and `engines`.
 - Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies, without waiting for 3 days and on automerge.
@@ -201,7 +201,7 @@ and it configures the following:
 - group infra as code packages (aws, cdk8s, cdktf, hashicorp) int a single group
   and schedule their updates during working hours with a priority of 1.
 - Update packages from the `@types/*` scope with lower priority(-5) than other dependencies and disable `npm:unpublishSafe`.
-- link to this section in the readme from the dependency dashboard, 
+- link to this section in the readme from the dependency dashboard,
   mentioning that PR might be merged automatically if configured that way.
 
 #### Related options and presets
