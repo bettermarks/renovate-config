@@ -54,7 +54,7 @@ jobs:
       - working-directory: renovate-config
         name: "add or update config files"
         run: |
-          node ./init.js "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
+          node ./init.ts "../${{ inputs.repository}}" '${{ toJson(inputs) }}'
       - working-directory: ${{ inputs.repository }}
         name: "Commit and push changes"
         run: |
