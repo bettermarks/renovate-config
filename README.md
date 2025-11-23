@@ -123,7 +123,8 @@ It includes the following presets:
 - [`:separateMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemajorreleases) (from minor releases)
 - [`:separateMultipleMajorReleases`](https://docs.renovatebot.com/presets-default/#separatemultiplemajorreleases)
   when there are multiple, we can decide to go one by one or all at once
-- [`timezone`]
+- [`timezone`](https://docs.renovatebot.com/key-concepts/scheduling/#setting-your-timezone)
+  sets it to our Berlin timezone
 
 and it configures the following:
 
@@ -140,10 +141,9 @@ and it configures the following:
 
 ##### Rules for [reducing noise](https://docs.renovatebot.com/noise-reduction/):
 
-Only automatically create one PR at a time and only create/update PRs in the morning and evening,
-which is related to the start and end of working days.
-Create the PR right away when checks done by renovate (like [`npm:unpublishSafe`](https://docs.renovatebot.com/presets-npm/#npmunpublishsafe)) pass
-and only up to six times per hour (every 10 min).
+Only automatically create one PR per hour and only during office hours (8-20 Berlin time),
+to make sure all checks should be able to pass.
+Create the PR right away instead of only creating branches.
 Create up to 3 security updates in parallel during working hours.
 All major version bumps need to be triggered manually from the dependency dashboard.
 
@@ -151,7 +151,7 @@ All major version bumps need to be triggered manually from the dependency dashbo
 {
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
-  "prHourlyLimit": 6,
+  "prHourlyLimit": 1,
   "updateNotScheduled": false,
   "vulnerabilityAlerts": {
     "labels": ["security"],
@@ -165,7 +165,7 @@ All major version bumps need to be triggered manually from the dependency dashbo
     }
   ],
   "timezone": "Europe/Berlin",
-  "schedule": ["* 7-8,18-20 * * 1-5"]
+  "schedule": ["* 8-20 * * 1-5"]
 }
 ```
 
@@ -194,7 +194,9 @@ and it configures the following:
 - configure `minimumReleaseAge` of 3 days for regular updates of npm packages,
   while still allowing immediate PR creation ([docs](https://docs.renovatebot.com/key-concepts/minimum-release-age/#internalchecksfilterstrict), [related discussion thread](https://github.com/renovatebot/renovate/discussions/39242#discussioncomment-14987608))
 - keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/), `overrides` and `engines`.
-- Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies, without waiting for 3 days and on automerge.
+- Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies,
+  without waiting for 3 days and on automerge and allow 3 of them per hour.
+- Group packages from bettermarks monorepos that publish multiple packages into a single PR
 - Update the `typescript` dependency with higher priority(2) than other dependencies.
   Create separate PRs for patch and minor and multiple minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.
