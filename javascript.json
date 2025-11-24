@@ -35,8 +35,13 @@
       "matchPackageNames": ["/^@bettermarks/.*/", "/^bm-.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "prPriority": 5,
+      "prHourlyLimit": 3,
       "minimumReleaseAge": "0 days",
       "automerge": true
+    },
+    {
+      "matchSourceUrls": ["https://github.com/bettermarks/eslint-configs"],
+      "groupName": "@bettermarks/eslint-configs"
     },
     {
       "matchPackageNames": ["typescript"],

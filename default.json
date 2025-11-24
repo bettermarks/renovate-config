@@ -13,7 +13,7 @@
   ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
-  "prHourlyLimit": 6,
+  "prHourlyLimit": 1,
   "updateNotScheduled": false,
   "dependencyDashboardTitle": "Dependencies Dashboard (Renovate Bot)",
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#default  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
@@ -30,5 +30,5 @@
     { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": true }
   ],
   "timezone": "Europe/Berlin",
-  "schedule": ["* 7-8,18-20 * * 1-5"]
+  "schedule": ["* 8-20 * * 1-5"]
 }

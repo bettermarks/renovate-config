@@ -15,7 +15,7 @@ if [[ ! -f "$RENOVATE_CONFIG_FILE" ]] ; then
   echo "could not find the file $(realpath "$RENOVATE_CONFIG_FILE")"
   exit 1
 fi
-
+set -x
 if command -v pnpm; then
   pnpm dlx --package renovate renovate-config-validator --strict "$RENOVATE_CONFIG_FILE"
 else
