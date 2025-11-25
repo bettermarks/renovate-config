@@ -34,10 +34,10 @@ jobs:
   init:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           path: renovate-config
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           repository: bettermarks/${{ inputs.repository}}
           path: ${{ inputs.repository }}
