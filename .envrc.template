@@ -1,0 +1,4 @@
+# cp .envrc.template .envrc && direnv allow
+# Optional: for running scan.ts
+# needs repository read access and metadata access
+export GITHUB_TOKEN=''
