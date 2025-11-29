@@ -203,9 +203,11 @@ const getReposPage = async (page = 1) => {
 };
 
 const reposCache = ".temp/repos.json";
-const allowRepoCache:boolean = false;
+const allowRepoCache: boolean = false;
 const reposFromCache =
-  allowRepoCache && fs.existsSync(reposCache) && !process.argv.includes("--no-cache");
+  allowRepoCache &&
+  fs.existsSync(reposCache) &&
+  !process.argv.includes("--no-cache");
 const repos: Awaited<ReturnType<typeof getReposPage>> = reposFromCache
   ? JSON.parse(fs.readFileSync(reposCache, "utf-8"))
   : await getReposPage();
@@ -242,7 +244,7 @@ for (const repo of repos) {
     repo.archived ? "archived" : "",
   );
   if (!repo.default_branch) {
-    throw"ERROR: no default branch configured!";
+    throw "ERROR: no default branch configured!";
   }
 
   const { tree, truncated } = (
