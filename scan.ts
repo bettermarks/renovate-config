@@ -203,8 +203,9 @@ const getReposPage = async (page = 1) => {
 };
 
 const reposCache = ".temp/repos.json";
+const allowRepoCache:boolean = false;
 const reposFromCache =
-  fs.existsSync(reposCache) && !process.argv.includes("--no-cache");
+  allowRepoCache && fs.existsSync(reposCache) && !process.argv.includes("--no-cache");
 const repos: Awaited<ReturnType<typeof getReposPage>> = reposFromCache
   ? JSON.parse(fs.readFileSync(reposCache, "utf-8"))
   : await getReposPage();
@@ -230,6 +231,7 @@ type WrittenFile = {
   isPkgJson: boolean;
   needsPnpmImport: boolean;
 };
+let scannedFiles = 0;
 for (const repo of repos) {
   console.log(
     "scanning",
@@ -240,8 +242,7 @@ for (const repo of repos) {
     repo.archived ? "archived" : "",
   );
   if (!repo.default_branch) {
-    console.error("default branch not configured!");
-    continue;
+    throw"ERROR: no default branch configured!";
   }
 
   const { tree, truncated } = (
@@ -254,7 +255,7 @@ for (const repo of repos) {
       })
       .catch((reason: unknown) => {
         // @ts-expect-error it works as expected
-        // repository whitout commits?
+        // repository without commits
         if (reason.response.status === 409) {
           // @ts-expect-error it works as expected
           console.log(reason.response.data.message);
@@ -288,6 +289,7 @@ for (const repo of repos) {
   if (relevant.length === 0) {
     continue;
   }
+  scannedFiles += relevant.length;
   console.log(
     "found files:",
     relevant.map((it) => it.path),
@@ -355,5 +357,5 @@ ${packageFiles.map((it) => `  - '${it.folder.replace(repoFolder + "/", "")}'`).j
   }
 }
 console.info(
-  `Scan of ${repos.length} repos ${reposFromCache ? "(from cache!)" : ""}} started at ${start.toISOString()} / ${start.toUTCString()} without any of the ${reportedPkgs.length} reported packages being found. (it took ${Math.ceil((Date.now() - start.valueOf()) / 1000)} seconds)`,
+  `Scan of ${scannedFiles} files in ${repos.length} repos ${reposFromCache ? "(from cache!)" : ""} started at ${start.toISOString()} without any of the ${reportedPkgs.length} reported packages being found. (it took ${Math.ceil((Date.now() - start.valueOf()) / 1000)} seconds)`,
 );
