@@ -31,14 +31,60 @@ const reportedRaw = (
     },
   })
 ).data as unknown as string;
-const reported = Object.fromEntries(
-  (
-    parse(reportedRaw, { columns: true }) as {
-      Package: string;
-      Version: string;
-    }[]
-  ).map(({ Package, Version }) => [Package, Version]),
+fs.writeFileSync(
+  // this is a public repo, so we should not add this file to the history
+  ".temp/wiz-sec-public_wiz_research-iocs_reports_shai-hulud-2-packages.csv",
+  reportedRaw,
 );
+
+const reported: Record<string, string> = Object.create(null);
+(
+  parse(reportedRaw, { columns: true }) as {
+    Package: string;
+    Version: string;
+  }[]
+)
+  .map(({ Package, Version }) => ({
+    pkg: Package,
+    version: Version,
+  }))
+  .forEach(({ pkg, version }) => {
+    const range = reported[pkg];
+    if (!range) {
+      // console.log("wiz-sec added", pkg, version);
+      reported[pkg] = version;
+    } else if (!satisfies(version, range)) {
+      console.log("wiz-sec added version", pkg, version);
+      reported[pkg] = `${range} || ${version}`;
+    }
+  });
+// https://discord.com/channels/905691206783209574/1433237869509611592/threads/1443542796479889499
+// this is a public repo, so we should not add this file to the history
+const socketReportedFile = ".temp/socket.dev_shai-hulud-2-purls.csv";
+if (fs.existsSync(socketReportedFile)) {
+  const socketReported = fs
+    .readFileSync(socketReportedFile, "utf-8")
+    .split("\n")
+    .map((line) => {
+      const match = line
+        .replace("purl:npm/", "")
+        .match(/^(?<pkg>(?:@[\w_-]+\/)?[\w_-]+)@(?<version>.+)$/);
+      if (!match) return;
+      let { pkg = "", version = "" } = match.groups!;
+      return { pkg, version };
+    })
+    .filter((it): it is { pkg: string; version: string } => Boolean(it));
+  socketReported.forEach(({ pkg, version }) => {
+    const range = reported[pkg];
+    if (!range) {
+      console.log("Socket added", pkg);
+      reported[pkg] = `= ${version}`;
+    } else if (!satisfies(version, range)) {
+      console.log("Socket added version", pkg, version);
+      reported[pkg] = `${range} || = ${version}`;
+    }
+  });
+}
 fs.mkdirSync(".temp", { recursive: true });
 fs.writeFileSync(".temp/reported.json", JSON.stringify(reported, null, 2));
 
@@ -46,9 +92,24 @@ const reportedPkgs = Object.keys(reported);
 console.log(
   `checking for ${reportedPkgs.length} reported packages` /*, reported*/,
 );
+// Make sure the ranges are understood by the semver library
+const reportedRange = reported["@alexcolls/nuxt-socket.io"];
+const reportedVersion = "0.0.7";
+if (
+  !reportedRange ||
+  !reportedRange.includes(reportedVersion) ||
+  !satisfies(reportedVersion, reportedRange)
+) {
+  throw `ERROR: expected the reported version '${reportedVersion}' to be contained in and satisfied by the reported range '${reportedRange}' in '.temp/reported.json'`;
+}
+if (!(reportedPkgs.length < 795)) {
+  throw `ERROR: expected at least 795 reported packages and it should only get more not less, but was ${reportedPkgs.length}`
+}
 // uses word boundaries to only match whole package names instead of things like "invo" and "tcsp" in hashes
-const REPORTED_PKGS_REG = new RegExp(`\b(${reportedPkgs.join("|")})\b`, "gui");
-// const REPORTED_PKGS_REG = new RegExp(`${reportedPkgs.join("|")}`, "gui");
+const REPORTED_PKGS_REG = new RegExp(`\\b(${reportedPkgs.join("|")})\\b`, "gui");
+if (!JSON.stringify(reported).match(REPORTED_PKGS_REG)) {
+  throw "ERROR: REPORTED_PKGS_REG is not working for .temp/reported.json, but it should.";
+}
 console.log(
   `cross checking ${allowed.length} packages that are allowed to run install scripts` /*, allowed*/,
 );
