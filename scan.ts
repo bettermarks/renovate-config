@@ -17,7 +17,7 @@ const github = new Octokit({
     "X-GitHub-Api-Version": "2022-11-28",
   },
 });
-
+const start = new Date();
 // check auth works
 await github.request("GET /user");
 const reportedRaw = (
@@ -102,11 +102,14 @@ if (
 ) {
   throw `ERROR: expected the reported version '${reportedVersion}' to be contained in and satisfied by the reported range '${reportedRange}' in '.temp/reported.json'`;
 }
-if (!(reportedPkgs.length < 795)) {
-  throw `ERROR: expected at least 795 reported packages and it should only get more not less, but was ${reportedPkgs.length}`
+if (reportedPkgs.length < 795) {
+  throw `ERROR: expected at least 795 reported packages and it should only get more not less, but was ${reportedPkgs.length}`;
 }
 // uses word boundaries to only match whole package names instead of things like "invo" and "tcsp" in hashes
-const REPORTED_PKGS_REG = new RegExp(`\\b(${reportedPkgs.join("|")})\\b`, "gui");
+const REPORTED_PKGS_REG = new RegExp(
+  `\\b(${reportedPkgs.join("|")})\\b`,
+  "gui",
+);
 if (!JSON.stringify(reported).match(REPORTED_PKGS_REG)) {
   throw "ERROR: REPORTED_PKGS_REG is not working for .temp/reported.json, but it should.";
 }
@@ -202,7 +205,7 @@ const getReposPage = async (page = 1) => {
 const reposCache = ".temp/repos.json";
 const reposFromCache =
   fs.existsSync(reposCache) && !process.argv.includes("--no-cache");
-const repos = reposFromCache
+const repos: Awaited<ReturnType<typeof getReposPage>> = reposFromCache
   ? JSON.parse(fs.readFileSync(reposCache, "utf-8"))
   : await getReposPage();
 if (!reposFromCache) {
@@ -351,3 +354,6 @@ ${packageFiles.map((it) => `  - '${it.folder.replace(repoFolder + "/", "")}'`).j
     await analysePnpmLock(repoFolder);
   }
 }
+console.info(
+  `Scan of ${repos.length} repos ${reposFromCache ? "(from cache!)" : ""}} started at ${start.toISOString()} / ${start.toUTCString()} without any of the ${reportedPkgs.length} reported packages being found. (it took ${Math.ceil((Date.now() - start.valueOf()) / 1000)} seconds)`,
+);
