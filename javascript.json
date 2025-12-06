@@ -44,6 +44,10 @@
       "groupName": "@bettermarks/eslint-configs"
     },
     {
+      "matchSourceUrls": ["https://github.com/Rel1cx/eslint-react"],
+      "groupName": "ESLint React"
+    },
+    {
       "matchPackageNames": ["typescript"],
       "separateMinorPatch": true,
       "separateMultipleMinor": true,
