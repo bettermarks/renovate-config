@@ -77,6 +77,11 @@
       "minimumReleaseAge": null,
       "prPriority": -5,
       "automerge": true
+    },
+    {
+      "matchPackageNames": ["ua-parser-js"],
+      "description": "v2 changes the license from MIT to AGPL",
+      "allowedVersions": "<2"
     }
   ]
 }
