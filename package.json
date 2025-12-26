@@ -19,7 +19,7 @@
     "types": "tsc",
     "prepare": "husky"
   },
-  "packageManager": "pnpm@10.26.1",
+  "packageManager": "pnpm@10.26.2",
   "devDependencies": {
     "@actions/github-script": "github:actions/github-script#v8.0.0",
     "@octokit/core": "7.0.6",
