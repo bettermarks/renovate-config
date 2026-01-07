@@ -169,6 +169,19 @@ All major version bumps need to be triggered manually from the dependency dashbo
 }
 ```
 
+##### Allows edits after renovate while still keeping the PR up to date:
+
+By default, committing to a branch created by renovate will mark the PR as "manually edited" which disables automatic updates by renovate.
+In order to apply patches or do some other post-renovate updates we can push commits with `bmdevops@bettermarks.com` to the branch without entering this mode.
+
+Example: Running `pnpm install --no-frozen-lockfile` in order to restore the `pnpmfileChecksum` in `pnpm-lock.yaml` which is stripped out by renovate updates.
+
+```json
+{
+  "gitIgnoredAuthors": ["bmdevops@bettermarks.com"]
+}
+```
+
 ### javascript
 
 Adds some rules we generally apply in javascript related repositories.

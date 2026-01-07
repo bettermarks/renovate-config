@@ -30,5 +30,6 @@
     { "matchUpdateTypes": ["major"], "dependencyDashboardApproval": true }
   ],
   "timezone": "Europe/Berlin",
-  "schedule": ["* 8-20 * * 1-5"]
+  "schedule": ["* 8-20 * * 1-5"],
+  "gitIgnoredAuthors": ["bmdevops@bettermarks.com"]
 }
