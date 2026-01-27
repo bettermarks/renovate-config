@@ -48,6 +48,10 @@
       "groupName": "ESLint React"
     },
     {
+      "matchSourceUrls": ["https://github.com/prettier/prettier"],
+      "groupName": "Prettier"
+    },
+    {
       "matchPackageNames": ["typescript"],
       "separateMinorPatch": true,
       "separateMultipleMinor": true,
