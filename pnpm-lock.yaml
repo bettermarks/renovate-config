@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: 24.10.10
-        version: 24.10.10
+        specifier: 24.10.11
+        version: 24.10.11
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -23,8 +23,8 @@ importers:
 
 packages:
 
-  '@types/node@24.10.10':
-    resolution: {integrity: sha512-+0/4J266CBGPUq/ELg7QUHhN25WYjE0wYTPSQJn1xeu8DOlIOPxXxrNGiLmfAWl7HMMgWFWXpt9IDjMWrF5Iow==}
+  '@types/node@24.10.11':
+    resolution: {integrity: sha512-/Af7O8r1frCVgOz0I62jWUtMohJ0/ZQU/ZoketltOJPZpnb17yoNc9BSoVuV9qlaIXJiPNOpsfq4ByFajSArNQ==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -46,7 +46,7 @@ packages:
 
 snapshots:
 
-  '@types/node@24.10.10':
+  '@types/node@24.10.11':
     dependencies:
       undici-types: 7.16.0
 
