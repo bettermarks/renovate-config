@@ -31,5 +31,15 @@
   ],
   "timezone": "Europe/Berlin",
   "schedule": ["* 8-20 * * 1-5"],
-  "gitIgnoredAuthors": ["bmdevops@bettermarks.com"]
+  "gitIgnoredAuthors": ["bmdevops@bettermarks.com"],
+  "dockerfile": {
+    "description": ["As :ignoreModulesAndTests but not ignoring **tests/**"],
+    "ignorePaths": [
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/vendor/**",
+      "**/examples/**",
+      "**/__fixtures__/**"
+    ]
+  }
 }
