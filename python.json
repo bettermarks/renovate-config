@@ -12,6 +12,14 @@
       "description": "Production dependencies",
       "matchFileNames": ["requirements.txt", "requirements.in"],
       "semanticCommitType": "fix"
+    },
+    {
+      "description": [
+        "Python's minor updates may be breaking so are actually major updates per semver."
+      ],
+      "matchDepNames": "python",
+      "matchUpdateTypes": "minor",
+      "dependencyDashboardApproval": true
     }
   ]
 }
