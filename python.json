@@ -20,6 +20,16 @@
       "matchDepNames": "python",
       "matchUpdateTypes": "minor",
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": [
+        "Update patch versions of Python",
+        "works for both .python-version and docker versions.",
+        "Makes both patch and minor versions available so either can be chosen."
+      ],
+      "matchDepNames": "python",
+      "separateMinorPatch": true,
+      "separateMultipleMinor": true
     }
   ]
 }
