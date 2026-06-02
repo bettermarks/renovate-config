@@ -12,6 +12,24 @@
       "description": "Production dependencies",
       "matchFileNames": ["requirements.txt", "requirements.in"],
       "semanticCommitType": "fix"
+    },
+    {
+      "description": [
+        "Python's minor updates may be breaking so are actually major updates per semver."
+      ],
+      "matchDepNames": "python",
+      "matchUpdateTypes": "minor",
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": [
+        "Update patch versions of Python",
+        "works for both .python-version and docker versions.",
+        "Makes both patch and minor versions available so either can be chosen."
+      ],
+      "matchDepNames": "python",
+      "separateMinorPatch": true,
+      "separateMultipleMinor": true
     }
   ]
 }
