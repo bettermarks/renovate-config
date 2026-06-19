@@ -6,6 +6,7 @@
     ":maintainLockFilesMonthly"
   ],
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
+  "npmrc": "@bettermarks:registry=https://npm.pkg.github.com/\n@fortawesome:registry=https://npm.fontawesome.com/\n",
   "packageRules": [
     { "matchUpdateTypes": ["pin"], "prPriority": 10, "automerge": true },
     {
