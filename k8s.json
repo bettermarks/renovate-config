@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>bettermarks/javascript"],
-  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#k8s which extends https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
+  "extends": ["github>bettermarks/renovate-config:npm-base"],
+  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#k8s  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
   "packageRules": [
     {
       "matchSourceUrls": [
@@ -29,7 +29,7 @@
       "matchFileNames": ["k8s/.nvmrc"],
       "matchUpdateTypes": ["major"],
       "enabled": true,
-      "dependencyDashboardApproval": false
+      "dependencyDashboardApproval": true
     }
   ]
 }

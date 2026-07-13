@@ -1,12 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "github>bettermarks/renovate-config",
-    ":pinAllExceptPeerDependencies",
-    ":maintainLockFilesMonthly"
-  ],
+  "extends": ["github>bettermarks/renovate-config:npm-base"],
   "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
-  "npmrc": "@bettermarks:registry=https://npm.pkg.github.com/\n@fortawesome:registry=https://npm.fontawesome.com/\n",
   "packageRules": [
     { "matchUpdateTypes": ["pin"], "prPriority": 10, "automerge": true },
     {
@@ -47,10 +42,6 @@
     {
       "matchSourceUrls": ["https://github.com/Rel1cx/eslint-react"],
       "groupName": "ESLint React"
-    },
-    {
-      "matchSourceUrls": ["https://github.com/prettier/prettier"],
-      "groupName": "Prettier"
     },
     {
       "matchPackageNames": ["typescript"],
