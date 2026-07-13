@@ -13,6 +13,7 @@ jobs:
           - default.json
           - javascript.json
           - python.json
+          - k8s.json
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6.0.2 # required for running the local validate action in the next step

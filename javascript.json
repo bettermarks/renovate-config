@@ -59,19 +59,6 @@
       "prPriority": 2
     },
     {
-      "matchSourceUrls": [
-        "https://github.com/aws{/,}**",
-        "https://github.com/cdk8s-team{/,}**",
-        "https://github.com/cdktf{/,}**",
-        "https://github.com/hashicorp{/,}**"
-      ],
-      "groupName": "js infrastructure packages",
-      "prPriority": 1,
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "schedule": ["* 8-12 * * 1"],
-      "automerge": true
-    },
-    {
       "matchManagers": ["npm"],
       "matchPackageNames": ["@types/jest"],
       "versioning": "jest"

@@ -225,6 +225,34 @@ Be aware that there are the config presets for [`config:js-app`](https://docs.re
 
 A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/presets-default/#automergepatch) to `extends`, but this needs to happen on the repository level, since we cannot be sure that test coverage is good enough in every repo. And since GitHub now offers the option to enable automerge per PR when it's ready, there might not even be a need for it.
 
+### k8s
+
+Extends the [javascript](#javascript) config with additional rules for repositories that manage Kubernetes/CDK8s infrastructure in a `k8s/` directory.
+
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:k8s"]
+}
+```
+
+#### What it does
+
+It includes the following presets/configs:
+
+- the [javascript config](#javascript) from this repository
+
+and it configures the following:
+
+- Group JavaScript infrastructure-as-code packages from AWS, CDK8s, CDKTF and HashiCorp into a single PR,
+  schedule their updates on Monday mornings (8-12 Berlin time), enable automerge,
+  and assign them a priority of 1.
+- Label dependencies from `k8s/package.json` as `k8s`, use `chore` as the semantic commit type,
+  and enable automerge for them.
+- Allow major Node.js version updates in `k8s/.nvmrc` to be created without requiring
+  manual approval from the dependency dashboard.
+- Link to this section in the readme from the dependency dashboard,
+  mentioning that this config extends the javascript config and that PRs might be merged automatically.
+
 ### python
 
 **There is currently only [limited / "alpha level" support](https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/pip-compile/readme.md) for python using `pip-compile`.

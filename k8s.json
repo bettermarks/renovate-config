@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>bettermarks/javascript"],
+  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#k8s which extends https://github.com/bettermarks/renovate-config#javascript  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
+  "packageRules": [
+    {
+      "matchSourceUrls": [
+        "https://github.com/aws{/,}**",
+        "https://github.com/cdk8s-team{/,}**",
+        "https://github.com/cdktf{/,}**",
+        "https://github.com/hashicorp{/,}**"
+      ],
+      "groupName": "js infrastructure packages",
+      "prPriority": 1,
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "schedule": ["* 8-12 * * 1"],
+      "automerge": true
+    },
+    {
+      "description": "Dependencies from k8s",
+      "matchFileNames": ["k8s/package.json"],
+      "labels": ["k8s"],
+      "semanticCommitType": "chore",
+      "automerge": true
+    },
+    {
+      "description": "Allow major Node updates in k8s/.nvmrc",
+      "matchManagers": ["nvm"],
+      "matchFileNames": ["k8s/.nvmrc"],
+      "matchUpdateTypes": ["major"],
+      "enabled": true,
+      "dependencyDashboardApproval": false
+    }
+  ]
+}
