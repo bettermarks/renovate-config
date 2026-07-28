@@ -21,7 +21,7 @@
   },
   "packageManager": "pnpm@10.34.5",
   "devDependencies": {
-    "@types/node": "24.12.3",
+    "@types/node": "24.13.3",
     "husky": "9.1.7",
     "prettier": "3.9.6",
     "typescript": "5.9.3"
