@@ -13,6 +13,7 @@
       "groupName": "js infrastructure packages",
       "prPriority": 1,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "semanticCommitScope": "k8s",
       "schedule": ["* 8-12 * * 1"],
       "automerge": true
     },
@@ -21,6 +22,7 @@
       "matchFileNames": ["k8s/package.json"],
       "labels": ["k8s"],
       "semanticCommitType": "chore",
+      "semanticCommitScope": "k8s",
       "automerge": true
     },
     {
@@ -28,6 +30,7 @@
       "matchManagers": ["nvm"],
       "matchFileNames": ["k8s/.nvmrc"],
       "matchUpdateTypes": ["major"],
+      "semanticCommitScope": "k8s",
       "enabled": true,
       "dependencyDashboardApproval": true
     }
