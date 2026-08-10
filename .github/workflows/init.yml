@@ -15,6 +15,10 @@ on:
         description: "Is the repository using python dependencies? (experimental!)"
         default: false
         type: boolean
+      k8s:
+        description: "Is the repository managing Kubernetes/CDK8s infrastructure in a k8s/ directory?"
+        default: false
+        type: boolean
       automerge:
         description: "Should some dependency updates be merged a human review? Leave the field empty if you are not sure!"
         default: ""

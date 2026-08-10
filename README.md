@@ -87,6 +87,13 @@ you should not enable to automerge option.
 
 ## Presets
 
+| Project type                       | Preset to extend                                    |
+| ---------------------------------- | --------------------------------------------------- |
+| JS/TS repo without a `k8s/` folder | `github>bettermarks/renovate-config:javascript`     |
+| JS/TS repo with a `k8s/` folder    | `github>bettermarks/renovate-config:javascript-k8s` |
+| Python repo with a `k8s/` folder   | `github>bettermarks/renovate-config:python-k8s`     |
+| Any repo with only a `k8s/` folder | `github>bettermarks/renovate-config:k8s`            |
+
 ### default
 
 It contains only language independent defaults that we want to apply to **all** repositories.
@@ -182,9 +189,34 @@ Example: Running `pnpm install --no-frozen-lockfile` in order to restore the `pn
 }
 ```
 
+### npm-base
+
+Shared foundation for any preset that deals with npm packages. You usually do
+not extend this directly; use [javascript](#javascript), [k8s](#k8s) or one of the
+combined presets instead.
+
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:npm-base"]
+}
+```
+
+#### What it does
+
+It includes the following presets:
+
+- the [default config](#default) from this repository
+- [`:pinAllExceptPeerDependencies`](https://docs.renovatebot.com/presets-default/#pinallexceptpeerdependencies)
+- [`:maintainLockFilesMonthly`](https://docs.renovatebot.com/presets-default/#maintainlockfilesmonthly)
+
+and it configures the following:
+
+- `npmrc` entries for the `@bettermarks` and `@fortawesome` scopes.
+- Group [`prettier`](https://github.com/prettier/prettier) updates into a single PR.
+
 ### javascript
 
-Adds some rules we generally apply in javascript related repositories.
+Adds rules we generally apply in JavaScript/TypeScript repositories.
 
 ```json
 {
@@ -196,9 +228,7 @@ Adds some rules we generally apply in javascript related repositories.
 
 It includes the following presets:
 
-- the [default config](#default) from this repository
-- [`:pinAllExceptPeerDependencies`](https://docs.renovatebot.com/presets-default/#pinallexceptpeerdependencies)
-- [`:maintainLockFilesMonthly`](https://docs.renovatebot.com/presets-default/#maintainlockfilesmonthly)
+- the [npm-base config](#npm-base) from this repository
 
 and it configures the following:
 
@@ -213,8 +243,6 @@ and it configures the following:
 - Update the `typescript` dependency with higher priority(2) than other dependencies.
   Create separate PRs for patch and minor and multiple minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.
-- group infra as code packages (aws, cdk8s, cdktf, hashicorp) int a single group
-  and schedule their updates during working hours with a priority of 1.
 - Update packages from the `@types/*` scope with lower priority(-5) than other dependencies and disable `npm:unpublishSafe`.
 - link to this section in the readme from the dependency dashboard,
   mentioning that PR might be merged automatically if configured that way.
@@ -224,6 +252,48 @@ and it configures the following:
 Be aware that there are the config presets for [`config:js-app`](https://docs.renovatebot.com/presets-config/#configjs-app) which you will not need, since it's already part of this one, but you might want to use [`config:js-lib`](https://docs.renovatebot.com/presets-config/#configjs-lib) or just apply [`:pinOnlyDevDependencies`](https://docs.renovatebot.com/presets-default/#pinonlydevdependencies) **after** this preset.
 
 A very common thing is to add [`:autoMergePatch`](https://docs.renovatebot.com/presets-default/#automergepatch) to `extends`, but this needs to happen on the repository level, since we cannot be sure that test coverage is good enough in every repo. And since GitHub now offers the option to enable automerge per PR when it's ready, there might not even be a need for it.
+
+### k8s
+
+Adds rules for repositories that manage Kubernetes/CDK8s infrastructure in a `k8s/` directory.
+Use this directly for Python projects with a `k8s/` folder, or use [javascript-k8s](#javascript-k8s)
+for JavaScript/TypeScript projects that also have a `k8s/` folder.
+
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:k8s"]
+}
+```
+
+#### What it does
+
+It includes the following presets/configs:
+
+- the [npm-base config](#npm-base) from this repository
+
+and it configures the following:
+
+- Group JavaScript infrastructure-as-code packages from AWS, CDK8s, CDKTF and HashiCorp into a single PR,
+  schedule their updates on Monday mornings (8-12 Berlin time), enable automerge,
+  and assign them a priority of 1.
+- Label dependencies from `k8s/package.json` as `k8s`, use `chore` as the semantic commit type,
+  and enable automerge for them.
+- Allow major Node.js version updates in `k8s/.nvmrc` to be created without requiring
+  manual approval from the dependency dashboard.
+- Link to this section in the readme from the dependency dashboard,
+  mentioning that PRs might be merged automatically.
+
+### javascript-k8s
+
+Convenience preset for JavaScript/TypeScript repositories that also manage
+Kubernetes/CDK8s infrastructure in a `k8s/` directory. It simply combines the
+[javascript](#javascript) and [k8s](#k8s) presets.
+
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:javascript-k8s"]
+}
+```
 
 ### python
 
@@ -256,4 +326,16 @@ It is very likely (especially for `uv pip compile`, which doesn't include the py
   "constraints": {
     "python": "==3.9"
   },
+```
+
+### python-k8s
+
+Convenience preset for Python repositories that also manage Kubernetes/CDK8s
+infrastructure in a `k8s/` directory. It combines the [python](#python) and
+[k8s](#k8s) presets.
+
+```json
+{
+  "extends": ["github>bettermarks/renovate-config:python-k8s"]
+}
 ```

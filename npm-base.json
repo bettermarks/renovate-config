@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>bettermarks/renovate-config",
+    ":pinAllExceptPeerDependencies",
+    ":maintainLockFilesMonthly"
+  ],
+  "npmrc": "@bettermarks:registry=https://npm.pkg.github.com/\n@fortawesome:registry=https://npm.fontawesome.com/\n",
+  "packageRules": [
+    {
+      "matchSourceUrls": ["https://github.com/prettier/prettier"],
+      "groupName": "Prettier"
+    }
+  ]
+}

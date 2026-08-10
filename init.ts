@@ -7,11 +7,24 @@ console.log("process.argv:", JSON.stringify(process.argv));
 const [_nodePath, _scriptPath, target, inputsRaw = "{}"] = process.argv;
 
 const inputs = JSON.parse(inputsRaw);
+
+const preset =
+  inputs.javascript && inputs.k8s
+    ? "javascript-k8s"
+    : inputs.python && inputs.k8s
+      ? "python-k8s"
+      : inputs.javascript
+        ? "javascript"
+        : inputs.python
+          ? "python"
+          : inputs.k8s
+            ? "k8s"
+            : "";
+
 const config = {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    `github>bettermarks/renovate-config${inputs.javascript ? ":javascript" : ""}`,
-    inputs.python ? "github>bettermarks/renovate-config:python" : "",
+    preset ? `github>bettermarks/renovate-config:${preset}` : "",
     inputs.automerge,
   ].filter(Boolean),
 };
