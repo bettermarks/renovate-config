@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>bettermarks/renovate-config"],
-  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#python  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)",
+  "dependencyDashboardHeader": "Uses https://github.com/bettermarks/renovate-config#python  \nPR that have automerge enabled [might be approved automatically](https://github.com/bettermarks/cloudflare-workers/tree/master/approve-dependency-pr-webhook#readme)",
   "pip-compile": {
     "managerFilePatterns": ["/(^|/)requirements(-.*)?\\.txt$/"]
   },
