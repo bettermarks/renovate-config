@@ -76,7 +76,7 @@ To make sure config changes do not only fail when landing on the default branch,
 ### Regarding automerge options
 
 For dependency updates that have `automerge` enabled, renovate will enable (GitHub) automerge for a PR.
-**PRs that are created by renovate and are have automerge enabled [might be approved automatically](https://github.com/bettermarks/approve-dependency-pr#readme)!**
+**PRs that are created by renovate and are have automerge enabled [might be approved automatically](https://github.com/bettermarks/cloudflare-workers/tree/master/approve-dependency-pr-webhook#readme)!**
 
 Which means that when all checks pass and there is a approving review, the PR will land right away.
 (If it is outdated, Renovate will update it outside office hours, and it will be merged when the checks still pass.)
