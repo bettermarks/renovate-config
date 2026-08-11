@@ -33,6 +33,13 @@
       "semanticCommitScope": "k8s",
       "enabled": true,
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Disable non-major Node updates in k8s/.nvmrc",
+      "matchManagers": ["nvm"],
+      "matchFileNames": ["k8s/.nvmrc"],
+      "matchUpdateTypes": ["minor", "patch", "pin"],
+      "enabled": false
     }
   ]
 }
