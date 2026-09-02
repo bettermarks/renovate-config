@@ -19,5 +19,13 @@ runs:
 
     - name: validate config file
       # no need to run the ./validate.sh script to check pnpm/node setup, it is faster this way
-      run: pnpm dlx --package renovate renovate-config-validator --strict "${{ inputs.config }}"
+      #
+      # Run from this action's own checkout: `pnpm dlx` reads the
+      # pnpm-workspace.yaml of its working directory, and the consuming
+      # repository may pin a newer pnpm than the one set up above. A repo on
+      # pnpm 11 that sets scoped `registries:` (no implicit `default` in
+      # pnpm 10) makes dlx resolution fail with ERR_INVALID_URL before the
+      # config is ever read.
+      run: pnpm dlx --package renovate renovate-config-validator --strict "$GITHUB_WORKSPACE/${{ inputs.config }}"
       shell: bash
+      working-directory: renovate-config
