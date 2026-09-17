@@ -9,7 +9,8 @@
     ":separateMultipleMajorReleases",
     "preview:dockerVersions",
     "customManagers:dockerfileVersions",
-    "customManagers:githubActionsVersions"
+    "customManagers:githubActionsVersions",
+    "helpers:pinGitHubActionDigests"
   ],
   "internalChecksFilter": "strict",
   "prConcurrentLimit": 1,
