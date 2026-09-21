@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/node": "24.13.5",
     "husky": "9.1.7",
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "typescript": "5.9.3"
   }
 }
