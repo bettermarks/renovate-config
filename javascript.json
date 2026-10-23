@@ -36,8 +36,57 @@
       "automerge": true
     },
     {
-      "matchSourceUrls": ["https://github.com/bettermarks/eslint-configs"],
-      "groupName": "@bettermarks/eslint-configs"
+      "matchSourceUrls": [
+        "https://github.com/bettermarks/eslint-configs",
+        "https://github.com/bettermarks/js-linter-configs"
+      ],
+      "groupName": "Bettermarks JS linter configs"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/bettermarks/browser-support"],
+      "groupName": "Bettermarks browser support"
+    },
+    {
+      "matchSourceUrls": [
+        "https://github.com/bettermarks/prettier-config",
+        "https://github.com/bettermarks/js-formatter-configs"
+      ],
+      "groupName": "Bettermarks formatter configs"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/changesets/changesets"],
+      "groupName": "Changesets"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/diegomura/react-pdf"],
+      "groupName": "React PDF"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/Effect-TS/effect"],
+      "groupName": "Effect"
+    },
+    {
+      "matchSourceUrls": [
+        "https://github.com/oxc-project/oxc",
+        "https://github.com/oxc-project/tsgolint"
+      ],
+      "groupName": "Oxc"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/redux-saga/redux-saga"],
+      "groupName": "Redux Saga"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/elysiajs/**"],
+      "groupName": "Elysia"
+    },
+    {
+      "matchSourceUrls": ["https://github.com/i18next/**"],
+      "groupName": "i18next"
+    },
+    {
+      "matchPackageNames": ["/^@opentelemetry\\//"],
+      "groupName": "OpenTelemetry release train"
     },
     {
       "matchSourceUrls": ["https://github.com/Rel1cx/eslint-react"],
@@ -48,11 +97,6 @@
       "separateMinorPatch": true,
       "separateMultipleMinor": true,
       "prPriority": 2
-    },
-    {
-      "matchManagers": ["npm"],
-      "matchPackageNames": ["@types/jest"],
-      "versioning": "jest"
     },
     {
       "matchPackageNames": ["/^@types/.*/"],
