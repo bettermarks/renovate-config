@@ -99,11 +99,6 @@
       "prPriority": 2
     },
     {
-      "matchManagers": ["npm"],
-      "matchPackageNames": ["@types/jest"],
-      "versioning": "jest"
-    },
-    {
       "matchPackageNames": ["/^@types/.*/"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "minimumReleaseAge": null,
