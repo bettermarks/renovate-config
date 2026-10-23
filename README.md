@@ -239,7 +239,7 @@ and it configures the following:
 - keep semver ranges in the [`resolutions` field used by yarn](https://classic.yarnpkg.com/lang/en/docs/selective-version-resolutions/), `overrides` and `engines`.
 - Update packages from the `@bettermarks/` scope or that start with `bm-` with higher priority(5) than other dependencies,
   without waiting for 3 days and on automerge and allow 3 of them per hour.
-- Group packages from bettermarks monorepos that publish multiple packages into a single PR
+- Group related package releases into a single PR, including Bettermarks browser-support, formatter, and linter configs as well as Changesets, Effect, Elysia, i18next, OpenTelemetry, Oxc, React PDF, Redux Saga, and ESLint React.
 - Update the `typescript` dependency with higher priority(2) than other dependencies.
   Create separate PRs for patch and minor and multiple minor version upgrades, since they introduce breaking changes in minor versions.
 - Keep the major version of `@types/jest` in sync with the major version of `jest`.
