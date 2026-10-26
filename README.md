@@ -28,6 +28,7 @@ To not repeat all the same [configuration options](https://docs.renovatebot.com/
   - Create the dependency dashboard GitHub issue
     (where you can check a box to create any update PR right away)
   - start creating dependency PRs (only outside of office hours)
+  - if these don't happen check the status in https://developer.mend.io/github/bettermarks and trigger a manual scan if the repo shows as `disabled`.
 
 ### as long as renovate is configured to only be available in selected repositories
 
