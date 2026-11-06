@@ -85,6 +85,10 @@
       "groupName": "i18next"
     },
     {
+      "matchSourceUrls": ["https://github.com/x18n-dev/x18n"],
+      "groupName": "x18n"
+    },
+    {
       "matchPackageNames": ["/^@opentelemetry\\//"],
       "groupName": "OpenTelemetry release train"
     },
